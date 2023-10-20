@@ -61,18 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        Button btn = (Button) findViewById(R.id.btnContinuar);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(
-                        MainActivity.this,
-                        MenuActivity.class
-                );
-                startActivity(it);
-            }
-        });
     }
 
     public void ClickContinuar(View view) {
@@ -84,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
         Boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha);
         if (usuarioLogado != false) {
             Toast.makeText(MainActivity.this, "Usuário logado com sucesso!", Toast.LENGTH_SHORT).show();
+            Intent it = new Intent(
+                    MainActivity.this,
+                    MenuActivity.class
+            );
+            startActivity(it);
         } else {
             Toast.makeText(MainActivity.this, "Usuário ou senha invalidos. Tente novamente!", Toast.LENGTH_SHORT).show();
         }
@@ -98,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         emailCadastro = findViewById(R.id.emailCadastro);
         senhaCadastro = findViewById(R.id.senhaCadastro);
         confirmarSenhaCadastro = findViewById(R.id.confirmarSenhaCadastro);
-
         nome = findViewById(R.id.nomeCadastro);
     }
 
