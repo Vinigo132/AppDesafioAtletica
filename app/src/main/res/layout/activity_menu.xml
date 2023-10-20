@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
     android:orientation="vertical"
     tools:context=".view.MenuActivity">
 
@@ -19,6 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="30sp"
             android:text="Atleticas Unaerp"
@@ -34,6 +36,8 @@
         android:layout_height="wrap_content"
         android:text="Próximos Eventos"
         android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:layout_marginLeft="20dp"
         android:textSize="25sp"/>
     
@@ -111,6 +115,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notícias da Atléticas"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="18sp"/>
 
             <ScrollView
@@ -237,6 +243,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notícias dos Usuários"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="18sp"/>
 
             <ScrollView
