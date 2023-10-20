@@ -11,7 +11,7 @@ public class UsuarioDAO implements IUsuario{
     public UsuarioDAO() {
         usuarios = new ArrayList<>();
 
-        usuarios.add(new Usuario("a", "a"));
+        usuarios.add(new Usuario("teste@ex.com", "123"));
         usuarios.add(new Usuario("usuario2@example.com", "senha456"));
         usuarios.add(new Usuario("usuario3@example.com", "senha789"));
     }
