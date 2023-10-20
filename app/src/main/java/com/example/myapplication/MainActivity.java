@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,9 @@ import android.widget.Toast;
 
 import com.example.myapplication.controller.UsuarioDAO;
 import com.example.myapplication.model.Usuario;
+
+import com.example.myapplication.view.MenuActivity;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout emailCadastro;
     private TextInputLayout senhaCadastro;
     private TextInputLayout confirmarSenhaCadastro;
+    private TextInputLayout nome;
     private Animation fadeInAnimation;
     private Animation fadeOutAnimation;
     private EditText emailLoginEditText;
@@ -67,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
         Boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha);
         if (usuarioLogado != false) {
             Toast.makeText(MainActivity.this, "Usuário logado com sucesso!", Toast.LENGTH_SHORT).show();
+            Intent it = new Intent(
+                    MainActivity.this,
+                    MenuActivity.class
+            );
+            startActivity(it);
         } else {
             Toast.makeText(MainActivity.this, "Usuário ou senha invalidos. Tente novamente!", Toast.LENGTH_SHORT).show();
         }
@@ -81,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         emailCadastro = findViewById(R.id.emailCadastro);
         senhaCadastro = findViewById(R.id.senhaCadastro);
         confirmarSenhaCadastro = findViewById(R.id.confirmarSenhaCadastro);
-
+        nome = findViewById(R.id.nomeCadastro);
     }
 
     private void initializeAnimations() {
@@ -104,10 +114,12 @@ public class MainActivity extends AppCompatActivity {
             emailCadastro.startAnimation(fadeInAnimation);
             senhaCadastro.startAnimation(fadeInAnimation);
             confirmarSenhaCadastro.startAnimation(fadeInAnimation);
+            nome.startAnimation(fadeInAnimation);
         } else {
             emailCadastro.startAnimation(fadeOutAnimation);
             senhaCadastro.startAnimation(fadeOutAnimation);
             confirmarSenhaCadastro.startAnimation(fadeOutAnimation);
+            nome.startAnimation(fadeOutAnimation);
         }
 
         emailLogin.setVisibility(loginVisibility);
@@ -116,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         emailCadastro.setVisibility(cadastroVisibility);
         senhaCadastro.setVisibility(cadastroVisibility);
         confirmarSenhaCadastro.setVisibility(cadastroVisibility);
+        nome.setVisibility(cadastroVisibility);
     }
 
 }
