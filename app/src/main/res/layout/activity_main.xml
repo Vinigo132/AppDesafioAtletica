@@ -80,6 +80,7 @@
         app:layout_constraintEnd_toEndOf="@id/containerLogin"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailLoginEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/white"
@@ -110,6 +111,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/senhaLoginEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPassword"
@@ -268,6 +270,8 @@
         android:layout_marginBottom="25dp"
         app:layout_constraintStart_toStartOf="@id/containerLogin"
         app:layout_constraintEnd_toEndOf="@id/containerLogin"
-        app:layout_constraintBottom_toBottomOf="@id/containerLogin"/>
+        app:layout_constraintBottom_toBottomOf="@id/containerLogin"
+        android:onClick="ClickContinuar"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

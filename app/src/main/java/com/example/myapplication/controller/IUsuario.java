@@ -4,5 +4,5 @@ import com.example.myapplication.model.Usuario;
 
 public interface IUsuario {
 
-    public abstract boolean autenticarUsuario(Usuario u);
+    public abstract boolean fazerLogin(String email, String senha);
 }
