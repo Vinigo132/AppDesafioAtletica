@@ -63,7 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="150dp"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="24dp">
 
             <ImageView
                 android:layout_width="150dp"
@@ -76,7 +77,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="24dp">
 
                 <ImageView
                     android:layout_width="150dp"
@@ -89,7 +91,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="24dp">
 
                 <ImageView
                     android:layout_width="150dp"
@@ -120,7 +123,7 @@
     <HorizontalScrollView
         android:id="@+id/scrollCuponsParcerias"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="220dp"
         android:layout_marginTop="10dp"
         android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -134,12 +137,14 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="24dp"
+            app:cardPreventCornerOverlap="true">
 
             <ImageView
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:background="@color/azulEscuro"
                 android:src="@drawable/cp3"/>
@@ -148,12 +153,13 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="24dp">
 
                 <ImageView
-                    android:layout_width="150dp"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:background="@color/azulEscuro"
                     android:src="@drawable/cp1"/>
@@ -162,12 +168,13 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="24dp">
 
                 <ImageView
-                    android:layout_width="150dp"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/cp2"/>
 

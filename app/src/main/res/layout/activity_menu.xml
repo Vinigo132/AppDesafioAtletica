@@ -56,7 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="24dp">
 
                 <ImageView
                     android:layout_width="150dp"
@@ -69,7 +70,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="24dp">
 
                 <ImageView
                     android:layout_width="150dp"
@@ -82,7 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="24dp">
 
                 <ImageView
                     android:layout_width="150dp"
@@ -133,7 +136,8 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        app:cardCornerRadius="24dp">
 
 
                         <LinearLayout
@@ -172,6 +176,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_margin="5dp"
                                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sapien eu erat luctus dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sodales augue et odio mattis, quis tempor mauris ornare. Cras eu quam magna. Vivamus et dolor ante. Praesent egestas odio quis purus eleifend, sit amet pulvinar tellus semper. Pellentesque eget nulla at urna varius eleifend sit amet nec odio. Ut in volutpat quam. Fusce eget laoreet nulla. Integer imperdiet dolor commodo sem fringilla, non congue odio egestas. Suspendisse interdum fermentum consequat." />
 
                         </ScrollView>
@@ -181,7 +186,8 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        app:cardCornerRadius="24dp">
 
 
                         <LinearLayout
@@ -220,6 +226,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_margin="5dp"
                                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sapien eu erat luctus dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sodales augue et odio mattis, quis tempor mauris ornare. Cras eu quam magna. Vivamus et dolor ante. Praesent egestas odio quis purus eleifend, sit amet pulvinar tellus semper. Pellentesque eget nulla at urna varius eleifend sit amet nec odio. Ut in volutpat quam. Fusce eget laoreet nulla. Integer imperdiet dolor commodo sem fringilla, non congue odio egestas. Suspendisse interdum fermentum consequat." />
 
                         </ScrollView>
@@ -261,7 +268,8 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        app:cardCornerRadius="24dp">
 
 
                         <LinearLayout
@@ -306,6 +314,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_margin="5dp"
                                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sapien eu erat luctus dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sodales augue et odio mattis, quis tempor mauris ornare. Cras eu quam magna. Vivamus et dolor ante. Praesent egestas odio quis purus eleifend, sit amet pulvinar tellus semper. Pellentesque eget nulla at urna varius eleifend sit amet nec odio. Ut in volutpat quam. Fusce eget laoreet nulla. Integer imperdiet dolor commodo sem fringilla, non congue odio egestas. Suspendisse interdum fermentum consequat." />
 
                         </ScrollView>
@@ -315,7 +324,8 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        app:cardCornerRadius="24dp">
 
 
                         <LinearLayout
@@ -360,6 +370,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_margin="5dp"
                                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sapien eu erat luctus dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sodales augue et odio mattis, quis tempor mauris ornare. Cras eu quam magna. Vivamus et dolor ante. Praesent egestas odio quis purus eleifend, sit amet pulvinar tellus semper. Pellentesque eget nulla at urna varius eleifend sit amet nec odio. Ut in volutpat quam. Fusce eget laoreet nulla. Integer imperdiet dolor commodo sem fringilla, non congue odio egestas. Suspendisse interdum fermentum consequat." />
 
                         </ScrollView>
