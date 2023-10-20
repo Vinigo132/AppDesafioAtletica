@@ -2,12 +2,26 @@ package com.example.myapplication.controller;
 
 import com.example.myapplication.model.Usuario;
 
-public class UsuarioDAO implements IUsuario{
+import java.util.ArrayList;
+import java.util.List;
 
-    @Override
-    public boolean autenticarUsuario(Usuario u) {
-        return false;
+public class UsuarioDAO implements IUsuario{
+    private List<Usuario> usuarios;
+
+    public UsuarioDAO() {
+        usuarios = new ArrayList<>();
+
+        usuarios.add(new Usuario("a", "a"));
+        usuarios.add(new Usuario("usuario2@example.com", "senha456"));
+        usuarios.add(new Usuario("usuario3@example.com", "senha789"));
     }
 
-    // implementar dps no main activity
+    public boolean fazerLogin(String email, String senha) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

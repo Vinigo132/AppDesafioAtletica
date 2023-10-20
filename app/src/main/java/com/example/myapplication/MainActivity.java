@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import com.google.android.material.button.MaterialButton;
+import android.widget.Toast;
+
+import com.example.myapplication.controller.UsuarioDAO;
+import com.example.myapplication.model.Usuario;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
+
 
     private TextInputLayout emailLogin;
     private TextInputLayout senhaLogin;
@@ -22,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout confirmarSenhaCadastro;
     private Animation fadeInAnimation;
     private Animation fadeOutAnimation;
+    private EditText emailLoginEditText;
+    private EditText senhaLoginEditText;
+    private Button btnContinuar;
+    private UsuarioDAO usuarioDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeViews();
         initializeAnimations();
+        usuarioDAO = new UsuarioDAO();
 
         MaterialButtonToggleGroup materialButtonToggleGroup = findViewById(R.id.btnsToggle);
 
@@ -48,6 +58,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void ClickContinuar(View view) {
+        emailLoginEditText = findViewById(R.id.emailLoginEditText);
+        senhaLoginEditText = findViewById(R.id.senhaLoginEditText);
+        String email = emailLoginEditText.getText().toString();
+        String senha = senhaLoginEditText.getText().toString();
+
+        Boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha);
+        if (usuarioLogado != false) {
+            Toast.makeText(MainActivity.this, "Usuário logado com sucesso!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this, "Usuário ou senha invalidos. Tente novamente!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void initializeViews() {
         //       -------------- login------------------
         emailLogin = findViewById(R.id.emailLogin);
@@ -57,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         emailCadastro = findViewById(R.id.emailCadastro);
         senhaCadastro = findViewById(R.id.senhaCadastro);
         confirmarSenhaCadastro = findViewById(R.id.confirmarSenhaCadastro);
+
     }
 
     private void initializeAnimations() {
