@@ -55,6 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtProdutos">
 
         <LinearLayout
+            android:id="@+id/produtoContainer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -67,6 +68,7 @@
             app:cardCornerRadius="24dp">
 
             <ImageView
+                android:id="@+id/prod1"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/prod1"/>
@@ -81,6 +83,7 @@
                 app:cardCornerRadius="24dp">
 
                 <ImageView
+                    android:id="@+id/prod2"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/prod2"/>
@@ -95,6 +98,7 @@
                 app:cardCornerRadius="24dp">
 
                 <ImageView
+                    android:id="@+id/prod3"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/prod3"/>
@@ -162,7 +166,7 @@
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:background="@color/azulEscuro"
-                    android:src="@drawable/cp1"/>
+                    android:src="@drawable/cp1" />
 
             </androidx.cardview.widget.CardView>
 
