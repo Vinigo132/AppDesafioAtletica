@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private Animation fadeOutAnimation;
     private EditText emailLoginEditText;
     private EditText senhaLoginEditText;
+    private EditText nomeCadastroEditText;
+    private EditText emailCadastroEditText;
+    private EditText senhaCadastroEditText;
+    private EditText ConferirSenhaEditText;
     private Button btnContinuar;
     private UsuarioDAO usuarioDAO;
 
@@ -64,22 +68,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ClickContinuar(View view) {
-        emailLoginEditText = findViewById(R.id.emailLoginEditText);
-        senhaLoginEditText = findViewById(R.id.senhaLoginEditText);
-        String email = emailLoginEditText.getText().toString();
-        String senha = senhaLoginEditText.getText().toString();
+        if(btnContinuar.getText() == "Continuar"){
+            emailLoginEditText = findViewById(R.id.emailLoginEditText);
+            senhaLoginEditText = findViewById(R.id.senhaLoginEditText);
+            String email = emailLoginEditText.getText().toString();
+            String senha = senhaLoginEditText.getText().toString();
 
-        Boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha);
-        if (usuarioLogado != false) {
-            Toast.makeText(MainActivity.this, "Usuário logado com sucesso!", Toast.LENGTH_SHORT).show();
-            Intent it = new Intent(
-                    MainActivity.this,
-                    MenuActivity.class
-            );
-            startActivity(it);
-        } else {
-            Toast.makeText(MainActivity.this, "Usuário ou senha invalidos. Tente novamente!", Toast.LENGTH_SHORT).show();
+            Boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha);
+            if (usuarioLogado) {
+                showToast("Usuário logado com sucesso!");
+                startMenuActivity();
+            } else {
+                showToast("Usuário ou senha invalidos. Tente novamente!");
+            }
+        }else{
+            nomeCadastroEditText = findViewById(R.id.nomeCadastroEditText);
+            emailCadastroEditText = findViewById(R.id.emailCadastroEditText);
+            senhaCadastroEditText = findViewById(R.id.senhaCadastroEditText);
+            ConferirSenhaEditText = findViewById(R.id.ConferirSenhaEditText);
+            String nome = nomeCadastroEditText.getText().toString();
+            String emailCadastro = emailCadastroEditText.getText().toString();
+            String senhaCadastro = senhaCadastroEditText.getText().toString();
+            String conferirSenha = ConferirSenhaEditText.getText().toString();
+
+            Boolean cadastro = usuarioDAO.Cadastrar(nome, emailCadastro, senhaCadastro, conferirSenha);
+            if (cadastro) {
+                showToast("Usuário cadastrado com sucesso!");
+                startMenuActivity();
+            } else {
+                showToast("Senhas não conferem. Tente novamente!");
+            }
+
         }
+
     }
 
     private void initializeViews() {
@@ -92,6 +113,12 @@ public class MainActivity extends AppCompatActivity {
         senhaCadastro = findViewById(R.id.senhaCadastro);
         confirmarSenhaCadastro = findViewById(R.id.confirmarSenhaCadastro);
         nome = findViewById(R.id.nomeCadastro);
+
+        btnContinuar = findViewById(R.id.btnContinuar);
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void initializeAnimations() {
@@ -104,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             emailLogin.startAnimation(fadeInAnimation);
             senhaLogin.startAnimation(fadeInAnimation);
             esqueceuSenha.startAnimation(fadeInAnimation);
+            btnContinuar.setText("Continuar");
         } else {
             emailLogin.startAnimation(fadeOutAnimation);
             senhaLogin.startAnimation(fadeOutAnimation);
@@ -115,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             senhaCadastro.startAnimation(fadeInAnimation);
             confirmarSenhaCadastro.startAnimation(fadeInAnimation);
             nome.startAnimation(fadeInAnimation);
+            btnContinuar.setText("Cadastrar");
         } else {
             emailCadastro.startAnimation(fadeOutAnimation);
             senhaCadastro.startAnimation(fadeOutAnimation);
@@ -129,6 +158,11 @@ public class MainActivity extends AppCompatActivity {
         senhaCadastro.setVisibility(cadastroVisibility);
         confirmarSenhaCadastro.setVisibility(cadastroVisibility);
         nome.setVisibility(cadastroVisibility);
+    }
+
+    private void startMenuActivity() {
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
     }
 
 }

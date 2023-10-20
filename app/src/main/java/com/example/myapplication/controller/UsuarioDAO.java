@@ -11,9 +11,9 @@ public class UsuarioDAO implements IUsuario{
     public UsuarioDAO() {
         usuarios = new ArrayList<>();
 
-        usuarios.add(new Usuario("teste@ex.com", "123"));
-        usuarios.add(new Usuario("usuario2@example.com", "senha456"));
-        usuarios.add(new Usuario("usuario3@example.com", "senha789"));
+        usuarios.add(new Usuario("fulano","teste@ex.com", "123"));
+        usuarios.add(new Usuario("ciclano","usuario2@example.com", "senha456"));
+        usuarios.add(new Usuario("teste","usuario3@example.com", "senha789"));
     }
 
     public boolean fazerLogin(String email, String senha) {
@@ -23,5 +23,15 @@ public class UsuarioDAO implements IUsuario{
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean Cadastrar(String nome, String email, String senha, String conferirSenha) {
+        if (senha.equals(conferirSenha)) {
+            usuarios.add(new Usuario(nome,email,senha));
+            return true;
+        } else {
+            return false;
+        }
     }
 }
