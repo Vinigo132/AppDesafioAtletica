@@ -35,7 +35,6 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public void publicarNoticia(){};
 
 
 }
