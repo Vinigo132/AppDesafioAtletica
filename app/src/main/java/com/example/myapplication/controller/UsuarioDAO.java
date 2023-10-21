@@ -1,5 +1,7 @@
 package com.example.myapplication.controller;
 
+import com.example.myapplication.model.AdmAtletica;
+import com.example.myapplication.model.MembroAtletica;
 import com.example.myapplication.model.Usuario;
 
 import java.util.ArrayList;
@@ -11,9 +13,9 @@ public class UsuarioDAO implements IUsuario{
     public UsuarioDAO() {
         usuarios = new ArrayList<>();
 
-        usuarios.add(new Usuario("fulano","teste@ex.com", "123"));
-        usuarios.add(new Usuario("ciclano","usuario2@example.com", "senha456"));
-        usuarios.add(new Usuario("teste","usuario3@example.com", "senha789"));
+        usuarios.add(new MembroAtletica("fulano","teste@ex.com", "123", "Jogador de xadrez"));
+        usuarios.add(new MembroAtletica("ciclano","usuario2@example.com", "senha456", "Jogador de futebol"));
+        usuarios.add(new AdmAtletica("teste","usuario3@example.com", "senha789", "Presidente"));
     }
 
     public boolean fazerLogin(String email, String senha) {
@@ -28,10 +30,15 @@ public class UsuarioDAO implements IUsuario{
     @Override
     public boolean Cadastrar(String nome, String email, String senha, String conferirSenha) {
         if (senha.equals(conferirSenha)) {
-            usuarios.add(new Usuario(nome,email,senha));
+            usuarios.add(new MembroAtletica(nome,email,senha));
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean AlterarPerfil(Usuario user) {
+        return false;
     }
 }

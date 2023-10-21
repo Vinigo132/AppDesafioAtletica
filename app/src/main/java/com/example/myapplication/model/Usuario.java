@@ -1,6 +1,6 @@
 package com.example.myapplication.model;
 
-public class Usuario {
+public abstract class Usuario {
     private String nome;
     private String email;
     private String senha;
@@ -34,6 +34,8 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public void publicarNoticia(){};
 
 
 }
