@@ -75,18 +75,39 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/txtMembros"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layoutMembros"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Gerenciar Membros"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/cardSobre"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/cardSobre">
+
+        <TextView
+            android:id="@+id/txtMembros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gerenciar Membros"
+            android:layout_gravity="end"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:textSize="25sp"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/baseline_add_24"
+            android:layout_marginLeft="110dp"
+            android:padding="3dp"
+            android:background="@color/cinzaClaro"/>
+
+
+    </LinearLayout>
+
+
 
 
 
@@ -97,7 +118,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/txtMembros"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMembros"
         app:layout_constraintBottom_toTopOf="@+id/navbarMenu">
 
         <LinearLayout
