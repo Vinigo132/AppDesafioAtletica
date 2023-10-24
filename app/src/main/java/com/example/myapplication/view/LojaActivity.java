@@ -30,6 +30,10 @@ public class LojaActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), MenuActivity.class));
                     overridePendingTransition(0, 0);
                 }
+                if (item.getItemId() == R.id.sobre) {
+                    startActivity(new Intent(getApplicationContext(), SobreActivity.class));
+                    overridePendingTransition(0, 0);
+                }
                 if (item.getItemId() == R.id.loja) {
                    return true;
                 }
