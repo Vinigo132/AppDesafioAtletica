@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             Boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha);
             if (usuarioLogado) {
                 showToast("Usuário logado com sucesso!");
-                //startMenuActivity();
+                startMenuActivity();
             } else {
                 showToast("Usuário ou senha invalidos. Tente novamente!");
             }
