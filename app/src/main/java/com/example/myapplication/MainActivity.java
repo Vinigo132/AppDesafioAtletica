@@ -1,9 +1,13 @@
 package com.example.myapplication;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,9 +20,14 @@ import com.example.myapplication.controller.UsuarioDAO;
 import com.example.myapplication.model.Usuario;
 
 import com.example.myapplication.view.MenuActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,10 +50,16 @@ public class MainActivity extends AppCompatActivity {
     private Button btnContinuar;
     private UsuarioDAO usuarioDAO;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Initialize Firebase Auth
+
 
         initializeViews();
         initializeAnimations();
@@ -68,20 +83,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ClickContinuar(View view) {
-        if(btnContinuar.getText() == "Continuar"){
+        if(btnContinuar.getText().toString().equals("Continuar")){
             emailLoginEditText = findViewById(R.id.emailLoginEditText);
             senhaLoginEditText = findViewById(R.id.senhaLoginEditText);
             String email = emailLoginEditText.getText().toString();
             String senha = senhaLoginEditText.getText().toString();
 
-            Boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha);
-            if (usuarioLogado) {
-                showToast("Usuário logado com sucesso!");
-                startMenuActivity();
-            } else {
-                showToast("Usuário ou senha invalidos. Tente novamente!");
-            }
-        }else{
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
+                    .addOnCompleteListener(this, new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "Login bem-sucedido", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(MainActivity.this, "Falha no login: " +
+                                        task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+    }else{
             nomeCadastroEditText = findViewById(R.id.nomeCadastroEditText);
             emailCadastroEditText = findViewById(R.id.emailCadastroEditText);
             senhaCadastroEditText = findViewById(R.id.senhaCadastroEditText);

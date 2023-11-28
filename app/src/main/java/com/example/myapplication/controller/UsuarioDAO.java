@@ -1,30 +1,40 @@
 package com.example.myapplication.controller;
 
+import androidx.annotation.NonNull;
+
 import com.example.myapplication.model.AdmAtletica;
 import com.example.myapplication.model.MembroAtletica;
 import com.example.myapplication.model.Usuario;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 public class UsuarioDAO implements IUsuario{
     private List<Usuario> usuarios;
 
     public UsuarioDAO() {
-        usuarios = new ArrayList<>();
 
-        usuarios.add(new MembroAtletica("fulano","teste@ex.com", "123", "Jogador de xadrez"));
-        usuarios.add(new MembroAtletica("ciclano","usuario2@example.com", "senha456", "Jogador de futebol"));
-        usuarios.add(new AdmAtletica("teste","usuario3@example.com", "senha789", "Presidente"));
     }
 
     public boolean fazerLogin(String email, String senha) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
-                return true;
-            }
-        }
-        return false;
+        final boolean[] login = {false};
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
+                .addOnCompleteListener((Executor) this, new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if (task.isSuccessful()) {
+                            login[0] = true;
+                        } else {
+                            login[0] = false;
+                        }
+                    }
+                });
+
+        return login[0];
     }
 
     @Override
