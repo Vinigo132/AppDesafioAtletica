@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ClickContinuar(View view) {
-        if(btnContinuar.getText() == "Continuar"){
+        if(btnContinuar.getText().toString().equals("Continuar")){
             emailLoginEditText = findViewById(R.id.emailLoginEditText);
             senhaLoginEditText = findViewById(R.id.senhaLoginEditText);
             String email = emailLoginEditText.getText().toString();
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             Boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha);
             if (usuarioLogado) {
                 showToast("Usuário logado com sucesso!");
-                startMenuActivity();
+                //startMenuActivity();
             } else {
                 showToast("Usuário ou senha invalidos. Tente novamente!");
             }
