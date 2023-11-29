@@ -14,6 +14,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,9 +29,7 @@ public class UsuarioDAO implements IUsuario{
 
     private String usuarioId;
 
-    public UsuarioDAO() {
 
-    }
     public void fazerLogin(String email, String senha, final IOnLoginCompleteListener listener) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -35,8 +38,9 @@ public class UsuarioDAO implements IUsuario{
                         if (task.isSuccessful()) {
                             listener.onLoginResult(true, null);
                         } else {
-                            String errorMessage = task.getException().getMessage();
-                            listener.onLoginResult(false, errorMessage);
+
+                            listener.onLoginResult(false, "Falha ao fazer login: " +
+                                    "verifique sua senha e email ou se tem cadastro!");
                         }
                     }
                 });
@@ -56,11 +60,31 @@ public class UsuarioDAO implements IUsuario{
                                 salvarDadosUsuario(nome);
                                 listener.onLoginResult(true, null);
                             } else {
-                                String errorMessage = task.getException().getMessage();
-                                listener.onLoginResult(false, errorMessage);
+                                String erro;
+
+
+                                try {
+                                    throw task.getException();
+
+                                }catch(FirebaseAuthWeakPasswordException e){
+
+                                    erro = "A senha deve conter no mínimo 6 caracteres!";
+                                }catch (FirebaseAuthUserCollisionException e){
+
+                                    erro = "Esta conta já foi cadastrada!";
+                                }catch (FirebaseAuthInvalidCredentialsException e){
+
+                                    erro = "Email inválido!";
+                                }
+                                catch (Exception e) {
+                                    erro = "Erro ao cadastrar usuário!";
+                                }
+                                listener.onLoginResult(false, erro);
                             }
                         }
                     });
+        }else{
+            listener.onLoginResult(false,"As senhas não conferem!");
         }
 
 

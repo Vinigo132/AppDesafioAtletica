@@ -2,8 +2,10 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.example.myapplication.controller.IOnLoginCompleteListener;
+import com.example.myapplication.controller.MinhaException;
 import com.example.myapplication.controller.UsuarioDAO;
 import com.example.myapplication.model.Usuario;
 
@@ -44,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText senhaCadastroEditText;
     private EditText ConferirSenhaEditText;
     private Button btnContinuar;
+    private Button btnLogin;
+    private Button btnCadastro;
     private UsuarioDAO usuarioDAO;
+    private MinhaException exception;
 
 
 
@@ -78,26 +84,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClickContinuar(View view) {
         if(btnContinuar.getText().toString().equals("Continuar")){
+
             emailLoginEditText = findViewById(R.id.emailLoginEditText);
             senhaLoginEditText = findViewById(R.id.senhaLoginEditText);
             String email = emailLoginEditText.getText().toString();
             String senha = senhaLoginEditText.getText().toString();
 
-            // Chame o método fazerLogin da classe UsuarioDAO
-            usuarioDAO.fazerLogin(email, senha, new IOnLoginCompleteListener() {
+            if(email.isEmpty() || senha.isEmpty()){
+                showToast("Preencha todos os campos!");
+            }else {
+                // Chame o método fazerLogin da classe UsuarioDAO
+                usuarioDAO.fazerLogin(email, senha, new IOnLoginCompleteListener() {
 
-                @Override
-                public void onLoginResult(boolean success, String errorMessage) {
-                    if (success) {
-                        showToast("Login bem-sucedido");
-                        startMenuActivity();
-                    } else {
-                        showToast("Falha no login: " + errorMessage);
+                    @Override
+                    public void onLoginResult(boolean success, String errorMessage) {
+                        if (success) {
+                            showToast("Login bem-sucedido");
+                            startMenuActivity();
+                        } else {
+                            showToast(errorMessage);
+                        }
                     }
-                }
-            });
+                });
+            }
 
-        }else{
+        }else {
             nomeCadastroEditText = findViewById(R.id.nomeCadastroEditText);
             emailCadastroEditText = findViewById(R.id.emailCadastroEditText);
             senhaCadastroEditText = findViewById(R.id.senhaCadastroEditText);
@@ -107,20 +118,24 @@ public class MainActivity extends AppCompatActivity {
             String senhaCadastro = senhaCadastroEditText.getText().toString();
             String conferirSenha = ConferirSenhaEditText.getText().toString();
 
-            usuarioDAO.Cadastrar(nome, emailCadastro, senhaCadastro, conferirSenha, new IOnLoginCompleteListener() {
-                @Override
-                public void onLoginResult(boolean success, String errorMessage) {
-                    if (success) {
-                        showToast("Cadastro bem-sucedido");
-                        startMenuActivity();
-                    } else {
-                        showToast("Falha no cadastro: " + errorMessage);
-                    }
-                }
-            });
+            if (nome.isEmpty() || emailCadastro.isEmpty() || senhaCadastro.isEmpty() || conferirSenha.isEmpty()) {
+                showToast("Preencha todos os campos!");
+            } else {
+                String erro;
+                    usuarioDAO.Cadastrar(nome, emailCadastro, senhaCadastro, conferirSenha, new IOnLoginCompleteListener() {
+                        @Override
+                        public void onLoginResult(boolean success, String errorMessage) {
+                            if (success) {
+                                showToast("Cadastro bem-sucedido");
+                                startMenuActivity();
+                            } else {
+                                showToast(errorMessage);
+                            }
+                        }
+                    });
 
+            }
         }
-
     }
 
     private void initializeViews() {
