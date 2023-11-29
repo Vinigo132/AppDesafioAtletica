@@ -48,10 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText senhaCadastroEditText;
     private EditText ConferirSenhaEditText;
     private Button btnContinuar;
-    private Button btnLogin;
-    private Button btnCadastro;
     private UsuarioDAO usuarioDAO;
-    private MinhaException exception;
 
 
 
@@ -68,16 +65,13 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialButtonToggleGroup materialButtonToggleGroup = findViewById(R.id.btnsToggle);
 
-        materialButtonToggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
-            @Override
-            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+        materialButtonToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
 
-                if (isChecked) {
-                    if (checkedId == R.id.btnLogin) {
-                        setVisibilityWithAnimation(View.VISIBLE, View.GONE);
-                    } else if (checkedId == R.id.btnCadastrar) {
-                        setVisibilityWithAnimation(View.GONE, View.VISIBLE);
-                    }
+            if (isChecked) {
+                if (checkedId == R.id.btnLogin) {
+                    setVisibilityWithAnimation(View.VISIBLE, View.GONE);
+                } else if (checkedId == R.id.btnCadastrar) {
+                    setVisibilityWithAnimation(View.GONE, View.VISIBLE);
                 }
             }
         });
@@ -95,16 +89,12 @@ public class MainActivity extends AppCompatActivity {
                 showToast("Preencha todos os campos!");
             }else {
                 // Chame o método fazerLogin da classe UsuarioDAO
-                usuarioDAO.fazerLogin(email, senha, new IOnLoginCompleteListener() {
-
-                    @Override
-                    public void onLoginResult(boolean success, String errorMessage) {
-                        if (success) {
-                            showToast("Login bem-sucedido");
-                            startMenuActivity();
-                        } else {
-                            showToast(errorMessage);
-                        }
+                usuarioDAO.fazerLogin(email, senha, (success, errorMessage) -> {
+                    if (success) {
+                        showToast("Login bem-sucedido");
+                        startMenuActivity();
+                    } else {
+                        showToast(errorMessage);
                     }
                 });
             }
@@ -123,15 +113,12 @@ public class MainActivity extends AppCompatActivity {
             if (membro.getNome().isEmpty() || membro.getEmail().isEmpty() || membro.getSenha().isEmpty() || conferirSenha.isEmpty()) {
                 showToast("Preencha todos os campos!");
             } else {
-                    usuarioDAO.Cadastrar(membro, conferirSenha, new IOnLoginCompleteListener() {
-                        @Override
-                        public void onLoginResult(boolean success, String errorMessage) {
-                            if (success) {
-                                showToast("Cadastro bem-sucedido");
-                                startMenuActivity();
-                            } else {
-                                showToast(errorMessage);
-                            }
+                    usuarioDAO.Cadastrar(membro, conferirSenha, (success, errorMessage) -> {
+                        if (success) {
+                            showToast("Cadastro bem-sucedido");
+                            startMenuActivity();
+                        } else {
+                            showToast(errorMessage);
                         }
                     });
 
