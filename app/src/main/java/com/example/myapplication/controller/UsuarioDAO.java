@@ -1,40 +1,52 @@
 package com.example.myapplication.controller;
 
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.model.AdmAtletica;
 import com.example.myapplication.model.MembroAtletica;
 import com.example.myapplication.model.Usuario;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioDAO implements IUsuario{
-    private List<Usuario> usuarios;
+public class UsuarioDAO implements IUsuario, OnLoginCompleteListener{
+    private FirebaseAuth mAuth;
 
     public UsuarioDAO() {
-        usuarios = new ArrayList<>();
 
-        usuarios.add(new MembroAtletica("fulano","teste@ex.com", "123", "Jogador de xadrez"));
-        usuarios.add(new MembroAtletica("ciclano","usuario2@example.com", "senha456", "Jogador de futebol"));
-        usuarios.add(new AdmAtletica("teste","usuario3@example.com", "senha789", "Presidente"));
+        mAuth = FirebaseAuth.getInstance();
     }
 
-    public boolean fazerLogin(String email, String senha) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
-                return true;
-            }
-        }
-        return false;
+    public void fazerLogin(String email, String senha, final OnLoginCompleteListener listener) {
+        mAuth.signInWithEmailAndPassword(email, senha)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            listener.onLoginResult(true, null);
+                        } else {
+                            String errorMessage = task.getException().getMessage();
+                            listener.onLoginResult(false, errorMessage);
+                        }
+                    }
+                });
+    }
+    @Override
+    public void onLoginResult(boolean success, String errorMessage) {
     }
 
     @Override
     public boolean Cadastrar(String nome, String email, String senha, String conferirSenha) {
-        if (senha.equals(conferirSenha)) {
-            usuarios.add(new MembroAtletica(nome,email,senha));
-            return true;
-        } else {
-            return false;
-        }
+     return true;
+
     }
 
     @Override

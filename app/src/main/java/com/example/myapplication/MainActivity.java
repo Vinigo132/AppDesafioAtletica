@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,13 +13,18 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import com.example.myapplication.controller.OnLoginCompleteListener;
 import com.example.myapplication.controller.UsuarioDAO;
 import com.example.myapplication.model.Usuario;
 
 import com.example.myapplication.view.MenuActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText ConferirSenhaEditText;
     private Button btnContinuar;
     private UsuarioDAO usuarioDAO;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +75,52 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void ClickContinuar(View view) {
-        if(btnContinuar.getText() == "Continuar"){
+
+    public void ClickContinuar(View view){
+
+        emailLoginEditText = findViewById(R.id.emailLoginEditText);
+        senhaLoginEditText = findViewById(R.id.senhaLoginEditText);
+        String email = emailLoginEditText.getText().toString().trim();
+        String senha = senhaLoginEditText.getText().toString().trim();
+        if (email.isEmpty() || senha.isEmpty()) {
+            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Chame o método fazerLogin da classe UsuarioDAO
+        usuarioDAO.fazerLogin(email, senha, new OnLoginCompleteListener() {
+
+            @Override
+            public void onLoginResult(boolean success, String errorMessage) {
+                if (success) {
+                    Toast.makeText(MainActivity.this, "Login bem-sucedido", Toast.LENGTH_SHORT).show();
+                    startMenuActivity();
+                } else {
+                    Toast.makeText(MainActivity.this, "Falha no login: " + errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+
+/*
+    public void esqueceuSenha(View view){
+        Intent it = new Intent(MainActivity.this, EsqueceuSenhaActivity.class);
+        startActivity(it);
+    }
+
+    public void cadastrarUsuario(View view){
+        Intent it = new Intent(MainActivity.this, CadastrarActivity.class);
+        startActivity(it);
+    }
+}
+*/
+
+
+    //-----------------------------------------------------
+  /*      public void ClickContinuar(View view) {
+        if(btnContinuar.getText().toString().equals("Continuar")){
             emailLoginEditText = findViewById(R.id.emailLoginEditText);
             senhaLoginEditText = findViewById(R.id.senhaLoginEditText);
             String email = emailLoginEditText.getText().toString();
@@ -102,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
+*/
     private void initializeViews() {
         //       -------------- login------------------
         emailLogin = findViewById(R.id.emailLogin);

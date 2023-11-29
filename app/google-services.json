@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "143518542230",
+    "project_id": "app-atletica-unaerp",
+    "storage_bucket": "app-atletica-unaerp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143518542230:android:9033a0a6fea3c88db595b7",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPM1o41UXy1UIxuUNCDMfZCwUQdYqQmRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
