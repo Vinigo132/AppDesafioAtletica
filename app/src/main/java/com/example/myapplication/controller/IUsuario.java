@@ -14,5 +14,7 @@ public interface IUsuario {
     public abstract void Cadastrar(String Nome, String Email, String Senha, String ConferirSenha, final IOnLoginCompleteListener listener);
     public abstract boolean AlterarPerfil(Usuario user);
 
+    public void salvarDadosUsuario(String nome);
+
 
 }
