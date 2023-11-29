@@ -9,6 +9,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
@@ -24,8 +25,9 @@ public class UsuarioDAO implements IUsuario{
                         if (task.isSuccessful()) {
                             listener.onLoginResult(true, null);
                         } else {
-                            String errorMessage = task.getException().getMessage();
-                            listener.onLoginResult(false, errorMessage);
+
+                            listener.onLoginResult(false, "Falha ao fazer login: " +
+                                    "verifique sua senha e email ou se tem cadastro!");
                         }
                     }
                 });
@@ -67,6 +69,8 @@ public class UsuarioDAO implements IUsuario{
                             }
                         }
                     });
+        }else{
+            listener.onLoginResult(false,"As senhas não conferem!");
         }
 
 

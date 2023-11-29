@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                             showToast("Login bem-sucedido");
                             startMenuActivity();
                         } else {
-                            showToast("Falha no login: " + errorMessage);
+                            showToast(errorMessage);
                         }
                     }
                 });
