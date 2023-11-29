@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.model.MembroAtletica;
 import com.example.myapplication.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,19 +51,17 @@ public class UsuarioDAO implements IUsuario{
     }
 
 
-    public void Cadastrar(String nome, String email, String senha, String conferirSenha,final IOnLoginCompleteListener listener) {
-        if (senha.equals(conferirSenha)) {
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
+    public void Cadastrar(MembroAtletica membro, String conferirSenha, final IOnLoginCompleteListener listener) {
+        if (membro.getSenha().equals(conferirSenha)) {
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(membro.getEmail(), membro.getSenha())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                salvarDadosUsuario(nome);
+                                salvarDadosUsuario(membro.getNome());
                                 listener.onLoginResult(true, null);
                             } else {
                                 String erro;
-
-
                                 try {
                                     throw task.getException();
 

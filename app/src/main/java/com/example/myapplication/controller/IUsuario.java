@@ -3,6 +3,7 @@ package com.example.myapplication.controller;
 import android.app.Activity;
 
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.model.MembroAtletica;
 import com.example.myapplication.model.Usuario;
 
 public interface IUsuario {
@@ -11,7 +12,7 @@ public interface IUsuario {
 
     void onLoginResult(boolean success, String errorMessage);
 
-    public abstract void Cadastrar(String Nome, String Email, String Senha, String ConferirSenha, final IOnLoginCompleteListener listener);
+    public abstract void Cadastrar(MembroAtletica membro, String ConferirSenha, final IOnLoginCompleteListener listener);
     public abstract boolean AlterarPerfil(Usuario user);
 
     public void salvarDadosUsuario(String nome);

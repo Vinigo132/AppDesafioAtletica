@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.myapplication.controller.IOnLoginCompleteListener;
 import com.example.myapplication.controller.MinhaException;
 import com.example.myapplication.controller.UsuarioDAO;
+import com.example.myapplication.model.MembroAtletica;
 import com.example.myapplication.model.Usuario;
 
 import com.example.myapplication.view.MenuActivity;
@@ -109,20 +110,20 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }else {
+            MembroAtletica membro = new MembroAtletica();
             nomeCadastroEditText = findViewById(R.id.nomeCadastroEditText);
             emailCadastroEditText = findViewById(R.id.emailCadastroEditText);
             senhaCadastroEditText = findViewById(R.id.senhaCadastroEditText);
             ConferirSenhaEditText = findViewById(R.id.ConferirSenhaEditText);
-            String nome = nomeCadastroEditText.getText().toString();
-            String emailCadastro = emailCadastroEditText.getText().toString();
-            String senhaCadastro = senhaCadastroEditText.getText().toString();
+            membro.setNome(nomeCadastroEditText.getText().toString());
+            membro.setEmail(emailCadastroEditText.getText().toString());
+            membro.setSenha(senhaCadastroEditText.getText().toString());
             String conferirSenha = ConferirSenhaEditText.getText().toString();
 
-            if (nome.isEmpty() || emailCadastro.isEmpty() || senhaCadastro.isEmpty() || conferirSenha.isEmpty()) {
+            if (membro.getNome().isEmpty() || membro.getEmail().isEmpty() || membro.getSenha().isEmpty() || conferirSenha.isEmpty()) {
                 showToast("Preencha todos os campos!");
             } else {
-                String erro;
-                    usuarioDAO.Cadastrar(nome, emailCadastro, senhaCadastro, conferirSenha, new IOnLoginCompleteListener() {
+                    usuarioDAO.Cadastrar(membro, conferirSenha, new IOnLoginCompleteListener() {
                         @Override
                         public void onLoginResult(boolean success, String errorMessage) {
                             if (success) {
