@@ -7,12 +7,12 @@ import com.example.myapplication.model.Usuario;
 
 public interface IUsuario {
 
-    public abstract boolean fazerLogin(String email, String senha,  Activity activity);
-    public abstract boolean Cadastrar( String Nome,String Email, String Senha, String ConferirSenha);
+    public abstract void fazerLogin(String email, String senha, final IOnLoginCompleteListener listener);
+
+    void onLoginResult(boolean success, String errorMessage);
+
+    public abstract void Cadastrar(String Nome, String Email, String Senha, String ConferirSenha, final IOnLoginCompleteListener listener);
     public abstract boolean AlterarPerfil(Usuario user);
 
-    public interface OnLoginCompleteListener {
-        public void onLoginResult(boolean success, String errorMessage);
-    }
 
 }

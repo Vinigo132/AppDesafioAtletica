@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import com.example.myapplication.controller.IOnLoginCompleteListener;
 import com.example.myapplication.controller.UsuarioDAO;
 import com.example.myapplication.model.Usuario;
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnContinuar;
     private UsuarioDAO usuarioDAO;
 
-    private FirebaseAuth mAuth;
+
 
 
 
@@ -53,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
         initializeViews();
         initializeAnimations();
@@ -84,13 +83,19 @@ public class MainActivity extends AppCompatActivity {
             String email = emailLoginEditText.getText().toString();
             String senha = senhaLoginEditText.getText().toString();
 
-            final boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha, this);
-            if (usuarioLogado) {
-                showToast("Usuário logado com sucesso!");
-                startMenuActivity();
-            } else {
-                showToast("Usuário ou senha invalidos. Tente novamente!");
-            }
+            // Chame o método fazerLogin da classe UsuarioDAO
+            usuarioDAO.fazerLogin(email, senha, new IOnLoginCompleteListener() {
+
+                @Override
+                public void onLoginResult(boolean success, String errorMessage) {
+                    if (success) {
+                        showToast("Login bem-sucedido");
+                        startMenuActivity();
+                    } else {
+                        showToast("Falha no login: " + errorMessage);
+                    }
+                }
+            });
 
         }else{
             nomeCadastroEditText = findViewById(R.id.nomeCadastroEditText);
@@ -102,13 +107,17 @@ public class MainActivity extends AppCompatActivity {
             String senhaCadastro = senhaCadastroEditText.getText().toString();
             String conferirSenha = ConferirSenhaEditText.getText().toString();
 
-            Boolean cadastro = usuarioDAO.Cadastrar(nome, emailCadastro, senhaCadastro, conferirSenha);
-            if (cadastro) {
-                showToast("Usuário cadastrado com sucesso!");
-                startMenuActivity();
-            } else {
-                showToast("Senhas não conferem. Tente novamente!");
-            }
+            usuarioDAO.Cadastrar(nome, emailCadastro, senhaCadastro, conferirSenha, new IOnLoginCompleteListener() {
+                @Override
+                public void onLoginResult(boolean success, String errorMessage) {
+                    if (success) {
+                        showToast("Cadastro bem-sucedido");
+                        startMenuActivity();
+                    } else {
+                        showToast("Falha no cadastro: " + errorMessage);
+                    }
+                }
+            });
 
         }
 

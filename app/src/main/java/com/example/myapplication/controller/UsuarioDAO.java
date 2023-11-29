@@ -1,53 +1,57 @@
 package com.example.myapplication.controller;
 
-import android.app.Activity;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 
-import com.example.myapplication.MainActivity;
-import com.example.myapplication.model.AdmAtletica;
-import com.example.myapplication.model.MembroAtletica;
 import com.example.myapplication.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executor;
 
 public class UsuarioDAO implements IUsuario{
 
 
-    public boolean fazerLogin(String email, String senha, Activity activity) {
-        final boolean[] login = new boolean[1];
+
+
+    public UsuarioDAO() {
+
+    }
+    public void fazerLogin(String email, String senha, final IOnLoginCompleteListener listener) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(activity, new OnCompleteListener() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task task) {
+                    public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            login[0] = true;
-                            Toast.makeText(activity, "Login bem-sucedido", Toast.LENGTH_SHORT).show();
+                            listener.onLoginResult(true, null);
                         } else {
-                            login[0] = false;
-                            Toast.makeText(activity, "Falha no login: " +
-                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            String errorMessage = task.getException().getMessage();
+                            listener.onLoginResult(false, errorMessage);
                         }
                     }
                 });
-        return login[0];
-
+    }
+    @Override
+    public void onLoginResult(boolean success, String errorMessage) {
     }
 
 
-    @Override
-    public boolean Cadastrar(String nome, String email, String senha, String conferirSenha) {
+    public void Cadastrar(String nome, String email, String senha, String conferirSenha,final IOnLoginCompleteListener listener) {
         if (senha.equals(conferirSenha)) {
-            return true;
-        } else {
-            return false;
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                listener.onLoginResult(true, null);
+                            } else {
+                                String errorMessage = task.getException().getMessage();
+                                listener.onLoginResult(false, errorMessage);
+                            }
+                        }
+                    });
         }
+
+
     }
 
     @Override
