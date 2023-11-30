@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,13 +15,19 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import com.example.myapplication.controller.IOnLoginCompleteListener;
+import com.example.myapplication.controller.MinhaException;
 import com.example.myapplication.controller.UsuarioDAO;
+import com.example.myapplication.model.MembroAtletica;
 import com.example.myapplication.model.Usuario;
 
 import com.example.myapplication.view.MenuActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
     private Button btnContinuar;
     private UsuarioDAO usuarioDAO;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,16 +65,13 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialButtonToggleGroup materialButtonToggleGroup = findViewById(R.id.btnsToggle);
 
-        materialButtonToggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
-            @Override
-            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+        materialButtonToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
 
-                if (isChecked) {
-                    if (checkedId == R.id.btnLogin) {
-                        setVisibilityWithAnimation(View.VISIBLE, View.GONE);
-                    } else if (checkedId == R.id.btnCadastrar) {
-                        setVisibilityWithAnimation(View.GONE, View.VISIBLE);
-                    }
+            if (isChecked) {
+                if (checkedId == R.id.btnLogin) {
+                    setVisibilityWithAnimation(View.VISIBLE, View.GONE);
+                } else if (checkedId == R.id.btnCadastrar) {
+                    setVisibilityWithAnimation(View.GONE, View.VISIBLE);
                 }
             }
         });
@@ -69,38 +79,51 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClickContinuar(View view) {
         if(btnContinuar.getText().toString().equals("Continuar")){
+
             emailLoginEditText = findViewById(R.id.emailLoginEditText);
             senhaLoginEditText = findViewById(R.id.senhaLoginEditText);
             String email = emailLoginEditText.getText().toString();
             String senha = senhaLoginEditText.getText().toString();
 
-            Boolean usuarioLogado = usuarioDAO.fazerLogin(email, senha);
-            if (usuarioLogado) {
-                showToast("Usuário logado com sucesso!");
-                startMenuActivity();
-            } else {
-                showToast("Usuário ou senha invalidos. Tente novamente!");
+            if(email.isEmpty() || senha.isEmpty()){
+                showToast("Preencha todos os campos!");
+            }else {
+                // Chame o método fazerLogin da classe UsuarioDAO
+                usuarioDAO.fazerLogin(email, senha, (success, errorMessage) -> {
+                    if (success) {
+                        showToast("Login bem-sucedido");
+                        startMenuActivity();
+                    } else {
+                        showToast(errorMessage);
+                    }
+                });
             }
-        }else{
+
+        }else {
+            MembroAtletica membro = new MembroAtletica();
             nomeCadastroEditText = findViewById(R.id.nomeCadastroEditText);
             emailCadastroEditText = findViewById(R.id.emailCadastroEditText);
             senhaCadastroEditText = findViewById(R.id.senhaCadastroEditText);
             ConferirSenhaEditText = findViewById(R.id.ConferirSenhaEditText);
-            String nome = nomeCadastroEditText.getText().toString();
-            String emailCadastro = emailCadastroEditText.getText().toString();
-            String senhaCadastro = senhaCadastroEditText.getText().toString();
+            membro.setNome(nomeCadastroEditText.getText().toString());
+            membro.setEmail(emailCadastroEditText.getText().toString());
+            membro.setSenha(senhaCadastroEditText.getText().toString());
             String conferirSenha = ConferirSenhaEditText.getText().toString();
 
-            Boolean cadastro = usuarioDAO.Cadastrar(nome, emailCadastro, senhaCadastro, conferirSenha);
-            if (cadastro) {
-                showToast("Usuário cadastrado com sucesso!");
-                startMenuActivity();
+            if (membro.getNome().isEmpty() || membro.getEmail().isEmpty() || membro.getSenha().isEmpty() || conferirSenha.isEmpty()) {
+                showToast("Preencha todos os campos!");
             } else {
-                showToast("Senhas não conferem. Tente novamente!");
+                    usuarioDAO.Cadastrar(membro, conferirSenha, (success, errorMessage) -> {
+                        if (success) {
+                            showToast("Cadastro bem-sucedido");
+                            startMenuActivity();
+                        } else {
+                            showToast(errorMessage);
+                        }
+                    });
+
             }
-
         }
-
     }
 
     private void initializeViews() {

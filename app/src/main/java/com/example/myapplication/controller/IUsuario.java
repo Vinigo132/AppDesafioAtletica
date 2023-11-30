@@ -1,11 +1,21 @@
 package com.example.myapplication.controller;
 
+import android.app.Activity;
+
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.model.MembroAtletica;
 import com.example.myapplication.model.Usuario;
 
 public interface IUsuario {
 
-    public abstract boolean fazerLogin(String email, String senha);
-    public abstract boolean Cadastrar( String Nome,String Email, String Senha, String ConferirSenha);
+    public abstract void fazerLogin(String email, String senha, final IOnLoginCompleteListener listener);
+
+    void onLoginResult(boolean success, String errorMessage);
+
+    public abstract void Cadastrar(MembroAtletica membro, String ConferirSenha, final IOnLoginCompleteListener listener);
     public abstract boolean AlterarPerfil(Usuario user);
+
+    public void salvarDadosUsuario(String nome);
+
 
 }
