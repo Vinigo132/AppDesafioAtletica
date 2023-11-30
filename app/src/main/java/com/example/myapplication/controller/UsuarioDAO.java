@@ -30,7 +30,6 @@ public class UsuarioDAO implements IUsuario{
 
 
     private String usuarioId;
-    private String nomeUser;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
