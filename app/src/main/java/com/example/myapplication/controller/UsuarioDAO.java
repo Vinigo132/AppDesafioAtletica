@@ -36,16 +36,13 @@ public class UsuarioDAO implements IUsuario{
 
     public void fazerLogin(String email, String senha, final IOnLoginCompleteListener listener) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            listener.onLoginResult(true, null);
-                        } else {
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        listener.onLoginResult(true, null);
+                    } else {
 
-                            listener.onLoginResult(false, "Falha ao fazer login: " +
-                                    "verifique sua senha e email ou se tem cadastro!");
-                        }
+                        listener.onLoginResult(false, "Falha ao fazer login: " +
+                                "verifique sua senha e email ou se tem cadastro!");
                     }
                 });
     }
@@ -57,32 +54,29 @@ public class UsuarioDAO implements IUsuario{
     public void Cadastrar(MembroAtletica membro, String conferirSenha, final IOnLoginCompleteListener listener) {
         if (membro.getSenha().equals(conferirSenha)) {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(membro.getEmail(), membro.getSenha())
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                salvarDadosUsuario(membro.getNome());
-                                listener.onLoginResult(true, null);
-                            } else {
-                                String erro;
-                                try {
-                                    throw task.getException();
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            salvarDadosUsuario(membro.getNome());
+                            listener.onLoginResult(true, null);
+                        } else {
+                            String erro;
+                            try {
+                                throw task.getException();
 
-                                }catch(FirebaseAuthWeakPasswordException e){
+                            }catch(FirebaseAuthWeakPasswordException e){
 
-                                    erro = "A senha deve conter no mínimo 6 caracteres!";
-                                }catch (FirebaseAuthUserCollisionException e){
+                                erro = "A senha deve conter no mínimo 6 caracteres!";
+                            }catch (FirebaseAuthUserCollisionException e){
 
-                                    erro = "Esta conta já foi cadastrada!";
-                                }catch (FirebaseAuthInvalidCredentialsException e){
+                                erro = "Esta conta já foi cadastrada!";
+                            }catch (FirebaseAuthInvalidCredentialsException e){
 
-                                    erro = "Email inválido!";
-                                }
-                                catch (Exception e) {
-                                    erro = "Erro ao cadastrar usuário!";
-                                }
-                                listener.onLoginResult(false, erro);
+                                erro = "Email inválido!";
                             }
+                            catch (Exception e) {
+                                erro = "Erro ao cadastrar usuário!";
+                            }
+                            listener.onLoginResult(false, erro);
                         }
                     });
         }else{
@@ -92,20 +86,15 @@ public class UsuarioDAO implements IUsuario{
 
     }
 
-    public String recuperarNome(NomeCallback callback){
+    public void recuperarNome(NomeCallback callback){
 
          usuarioId = FirebaseAuth.getInstance().getCurrentUser().getUid();
          DocumentReference documentReference = db.collection("Usuarios").document(usuarioId);
-        final String[] nome = new String[1];
-         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-             @Override
-             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                 if(value != null){
-                     callback.onNomeRecuperado(value.getString("nome"));
-                 }
+         documentReference.addSnapshotListener((value, error) -> {
+             if(value != null){
+                 callback.onNomeRecuperado(value.getString("nome"));
              }
          });
-         return nome[0];
     }
 
     public interface NomeCallback {
@@ -119,12 +108,7 @@ public class UsuarioDAO implements IUsuario{
         usuarioId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         DocumentReference documentReference = db.collection("Usuarios").document(usuarioId);
-        documentReference.set(usuarios).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d("DB", "sucesso ao salvar user");
-            }
-        })
+        documentReference.set(usuarios).addOnSuccessListener(unused -> Log.d("DB", "sucesso ao salvar user"))
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
