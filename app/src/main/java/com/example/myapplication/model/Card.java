@@ -2,6 +2,7 @@ package com.example.myapplication.model;
 
 public abstract class Card {
 
+    private String nome;
     private String descricao;
     private int id;
     private String img;
@@ -9,7 +10,8 @@ public abstract class Card {
     public Card() {
     }
 
-    public Card(String descricao, int id, String img) {
+    public Card(String nome, String descricao, int id, String img) {
+        this.nome = nome;
         this.descricao = descricao;
         this.id = id;
         this.img = img;

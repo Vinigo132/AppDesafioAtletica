@@ -67,9 +67,11 @@
             app:cardCornerRadius="24dp">
 
             <ImageView
+                android:id="@+id/prod1"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/prod1"/>
+                android:src="@drawable/prod1"
+                android:onClick="compraProduto"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -81,9 +83,11 @@
                 app:cardCornerRadius="24dp">
 
                 <ImageView
+                    android:id="@+id/prod2"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/prod2"/>
+                    android:src="@drawable/prod2"
+                    android:onClick="compraProduto"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -95,9 +99,11 @@
                 app:cardCornerRadius="24dp">
 
                 <ImageView
+                    android:id="@+id/prod3"
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/prod3"/>
+                    android:src="@drawable/prod3"
+                    android:onClick="compraProduto"/>
 
             </androidx.cardview.widget.CardView>
 

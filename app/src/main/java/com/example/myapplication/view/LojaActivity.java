@@ -41,4 +41,9 @@ public class LojaActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void compraProduto(){
+
+
+    }
 }
