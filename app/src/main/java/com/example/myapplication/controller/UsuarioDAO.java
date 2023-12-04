@@ -92,7 +92,7 @@ public class UsuarioDAO implements IUsuario{
 
     }
 
-    public String recuperarNome(NomeCallback callback){
+    public void recuperarNome(NomeCallback callback){
 
          usuarioId = FirebaseAuth.getInstance().getCurrentUser().getUid();
          DocumentReference documentReference = db.collection("Usuarios").document(usuarioId);
@@ -105,7 +105,6 @@ public class UsuarioDAO implements IUsuario{
                  }
              }
          });
-         return nome[0];
     }
 
     public interface NomeCallback {
