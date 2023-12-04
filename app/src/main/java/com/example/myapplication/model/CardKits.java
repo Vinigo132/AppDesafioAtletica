@@ -4,7 +4,7 @@ public class CardKits extends Card{
     private double valor;
     private String tamanho;
 
-    public CardKits(String descricao, int id, String img, double valor, String tamanho) {
+    public CardKits(String descricao, String id, String img, double valor, String tamanho) {
         super(descricao, id, img);
         this.valor = valor;
         this.tamanho = tamanho;

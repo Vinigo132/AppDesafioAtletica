@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LojaActivity extends AppCompatActivity {
 
@@ -22,6 +25,17 @@ public class LojaActivity extends AppCompatActivity {
 
         navbarMenu = findViewById(R.id.navbarMenu);
         navbarMenu.setSelectedItemId(R.id.loja);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        ImageView prod = findViewById(R.id.prod1);
+
+        prod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyDialogFragment dialog = new MyDialogFragment();
+                dialog.show(getSupportFragmentManager(),"Minha dialog");
+            }
+        });
 
         navbarMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -40,10 +54,5 @@ public class LojaActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    private void compraProduto(){
-
-
     }
 }

@@ -29,6 +29,22 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/teste1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/layoutLojaTitulo"
+        app:layout_constraintStart_toStartOf="@id/layoutLojaTitulo"
+        >
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="350dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/carrinho"/>
+    </LinearLayout>
     <TextView
         android:id="@+id/txtProdutos"
         android:layout_width="wrap_content"
@@ -104,6 +120,12 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/prod3"
                     android:onClick="compraProduto"/>
+
+                <ImageButton
+                    android:id="@+id/createbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/add_btn_foreground"/>
 
             </androidx.cardview.widget.CardView>
 

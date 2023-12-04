@@ -8,7 +8,7 @@ public class CardNoticias extends Card{
         return Titulo;
     }
 
-    public CardNoticias(String descricao, int id, String img, String titulo, String autor) {
+    public CardNoticias(String descricao, String id, String img, String titulo, String autor) {
         super(descricao, id, img);
         Titulo = titulo;
         Autor = autor;

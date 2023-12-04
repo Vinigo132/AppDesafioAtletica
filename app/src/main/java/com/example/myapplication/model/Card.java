@@ -7,7 +7,7 @@ public abstract class Card {
     private int id;
     private String img;
 
-    public Card() {
+    public Card(String descricao, String id, String img) {
     }
 
     public Card(String nome, String descricao, int id, String img) {
