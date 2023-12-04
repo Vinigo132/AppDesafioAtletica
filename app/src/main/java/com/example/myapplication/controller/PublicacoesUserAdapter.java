@@ -1,9 +1,6 @@
 package com.example.myapplication.controller;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.CardEvento;
 import com.example.myapplication.model.CardNoticias;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,48 +23,46 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHolder> {
+public class PublicacoesUserAdapter extends RecyclerView.Adapter<PublicacoesUserAdapter.ViewHolder> {
 
-    private List<CardEvento> lista;
+    private List<CardNoticias> lista;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-//        private final TextView descricao;
-        private final ImageView imagemEvento;
+        private final TextView nomePessoa;
+        private final TextView nomeCurso;
+        private final TextView descricao;
         private final ImageView btnExcluir;
-
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-//            descricao = view.findViewById(R.id.descricaoPostagem);
-            imagemEvento = view.findViewById(R.id.imgEvento);
-            btnExcluir = view.findViewById(R.id.btnExcluirEevnt);
+            descricao = view.findViewById(R.id.descricaoPostagem);
+            nomePessoa = view.findViewById(R.id.NomePostagemPessoa);
+            nomeCurso = view.findViewById(R.id.NomePostagemCurso);
+            btnExcluir = view.findViewById(R.id.btnExcluir);
         }
     }
 
-    public EventosAdapter(List<CardEvento> lista) {
+    public PublicacoesUserAdapter(List<CardNoticias> lista) {
         this.lista = lista;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public EventosAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View eventosView = inflater.inflate(R.layout.eventos_lista, parent, false);
-        EventosAdapter.ViewHolder viewHolder = new EventosAdapter.ViewHolder(eventosView);
+        View eventosView = inflater.inflate(R.layout.publicacoes_users_lista, parent, false);
+        ViewHolder viewHolder = new ViewHolder(eventosView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(EventosAdapter.ViewHolder viewHolder, final int position) {
-        CardEvento evento = lista.get(position);
-//       viewHolder.descricao.setText(evento.getDescricao());
-        byte[] imageBytes;
-        Log.d("Alo", "Documdsaento: " + evento.getImg());
-        imageBytes = Base64.decode(evento.getImg(), Base64.DEFAULT);
-        Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imageBytes, 0,imageBytes.length);
-        viewHolder.imagemEvento.setImageBitmap(imagemDecodificada);
+    public void onBindViewHolder( ViewHolder viewHolder, final int position) {
+        CardNoticias publicacao = lista.get(position);
+        viewHolder.descricao.setText(publicacao.getDescricao());
+        viewHolder.nomePessoa.setText(publicacao.getAutor());
+        viewHolder.nomeCurso.setText(publicacao.getCurso());
         viewHolder.btnExcluir.setOnClickListener(view -> excluirItem(position));
 
     }
@@ -78,14 +72,15 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
         return lista.size();
     }
 
-    public boolean adicionarItem(CardEvento evento){
+    public boolean adicionarItem(CardNoticias postagem){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference colecao = db.collection("eventos");
+        CollectionReference colecao = db.collection("publicacoesUsuarios");
 
         // Cria um novo documento com os dados desejados
         Map<String, String> dadosDocumento = new HashMap<>();
-        dadosDocumento.put("descricao", evento.getDescricao());
-        dadosDocumento.put("imagem", evento.getImg());
+        dadosDocumento.put("autor", postagem.getAutor());
+        dadosDocumento.put("curso", postagem.getCurso());
+        dadosDocumento.put("descricao", postagem.getDescricao());
 
 
         final boolean[] resultado = {false};
@@ -117,7 +112,7 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
         String idDocumento = lista.get(position).getId();
 
         // Obtém uma referência para o documento que deseja excluir
-        DocumentReference documentoRef = db.collection("eventos").document(String.valueOf(idDocumento));
+        DocumentReference documentoRef = db.collection("publicacoesUsuarios").document(String.valueOf(idDocumento));
 
         // Exclui o documento
         documentoRef.delete()
