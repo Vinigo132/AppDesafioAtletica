@@ -2,16 +2,14 @@ package com.example.myapplication.model;
 
 public abstract class Card {
 
-    private String nome;
     private String descricao;
-    private int id;
+    private String id;
     private String img;
 
-    public Card(String descricao, String id, String img) {
+    public Card() {
     }
 
-    public Card(String nome, String descricao, int id, String img) {
-        this.nome = nome;
+    public Card(String descricao, String id, String img) {
         this.descricao = descricao;
         this.id = id;
         this.img = img;
@@ -25,11 +23,11 @@ public abstract class Card {
         this.descricao = descricao;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

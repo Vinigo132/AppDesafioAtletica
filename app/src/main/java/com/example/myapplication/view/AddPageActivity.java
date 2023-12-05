@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.model.CardKits;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -49,30 +50,42 @@ public class AddPageActivity extends AppCompatActivity {
                 EditText tamanho = findViewById(R.id.createTamanho);
                 EditText qtd = findViewById(R.id.createQtd);
 
+                CardKits kits = new CardKits();
                 String nomeS = nome.getText().toString().trim();
+                kits.setNome(nomeS);
+
                 String descS = desc.getText().toString().trim();
+                kits.setDescricao(descS);
+
                 String tamanhoS = tamanho.getText().toString().trim();
-                String qtdS = qtd.getText().toString().trim();
+                kits.setTamanho(tamanhoS);
+
+                Double valorD = parseDouble(valor);
+                kits.setValor(valorD);
+
+                int qtdI = parseInt(qtd);
+                kits.setQuantidade(qtdI);
 
                 if(nome != null || desc != null || valor != null || tamanho != null || qtd != null) {
-                    createDados(nomeS, descS, valor, tamanhoS, qtd);
+                    createDados(kits);
                 }
             }
         });
     }
 
-    private void createDados(String nome, String descricao, EditText valor,String tamanho, EditText qtd){
+    private void createDados(CardKits c){
 
         String id = UUID.randomUUID().toString();
+        c.setId(id);
 
         Map<String, Object> doc = new HashMap<>();
 
         doc.put("ID", id);
-        doc.put("Nome", nome);
-        doc.put("Descricao",descricao);
-        doc.put("Valor", parseDouble(valor));
-        doc.put("Tamanho",tamanho);
-        doc.put("Quantidade",parseInt(qtd));
+        doc.put("Nome", c.getNome());
+        doc.put("Descricao",c.getDescricao());
+        doc.put("Valor", c.getValor());
+        doc.put("Tamanho",c.getTamanho());
+        doc.put("Quantidade",c.getQuantidade());
 
         db.collection("Produtos").document(id).set(doc)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
