@@ -75,6 +75,15 @@ public class LojaActivity extends AppCompatActivity {
             }
         });
 
+
+        // ----------------- popUp --------------
+        popUp = new Dialog(this);
+        popUp.setContentView(R.layout.activity_add_page);
+        popUp.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        popUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        ImageButton fechar = popUp.findViewById(R.id.closebtn);
+
         fechar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,13 +114,6 @@ public class LojaActivity extends AppCompatActivity {
     @SuppressLint("ResourceType")
     private void initializeViews() {
 
-        // ----------------- popUp --------------
-        popUp = new Dialog(this);
-        popUp.setContentView(R.layout.activity_add_page);
-        popUp.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        popUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-
-        ImageButton fechar = popUp.findViewById(R.id.closebtn);
     }
 
 }
