@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -43,6 +45,8 @@ public class LojaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loja);
 
+        initializeViews();
+
         CardKits teste = new CardKits();
         navbarMenu = findViewById(R.id.navbarMenu);
         navbarMenu.setSelectedItemId(R.id.loja);
@@ -53,13 +57,7 @@ public class LojaActivity extends AppCompatActivity {
         recyclerProdutos.setAdapter(produtosAdapter);
         Button create = findViewById(R.id.createbtn);
 
-        // ----------------- popUp --------------
-        popUp = new Dialog(this);
-        popUp.setContentView(R.layout.activity_add_page);
-        popUp.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        popUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
-        Button fechar = popUp.findViewById(R.id.closebtn);
 
 
 
@@ -77,6 +75,12 @@ public class LojaActivity extends AppCompatActivity {
             }
         });
 
+        fechar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), LojaActivity.class));
+            }
+        });
 
 
         navbarMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -96,6 +100,18 @@ public class LojaActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @SuppressLint("ResourceType")
+    private void initializeViews() {
+
+        // ----------------- popUp --------------
+        popUp = new Dialog(this);
+        popUp.setContentView(R.layout.activity_add_page);
+        popUp.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        popUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        ImageButton fechar = popUp.findViewById(R.id.closebtn);
     }
 
 }

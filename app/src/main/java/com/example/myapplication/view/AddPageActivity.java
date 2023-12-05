@@ -70,12 +70,7 @@ public class AddPageActivity extends AppCompatActivity {
 
         exibirImagem();
 
-        fechar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), LojaActivity.class));
-            }
-        });
+
 
         adicionar.setOnClickListener(new View.OnClickListener() {
             @Override
