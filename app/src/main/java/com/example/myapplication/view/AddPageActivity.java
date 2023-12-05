@@ -60,7 +60,7 @@ public class AddPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_page);
 
 
-        Button adicionar = findViewById(R.id.createbtn);
+
         ImageButton fechar = findViewById(R.id.closebtn);
 
         colecaoProdutos = db.collection("Produtos");
@@ -72,13 +72,7 @@ public class AddPageActivity extends AppCompatActivity {
 
 
 
-        adicionar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Toast.makeText(AddPageActivity.this,"oi",Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     public void adicionarImagem(View view){
@@ -188,4 +182,29 @@ public class AddPageActivity extends AppCompatActivity {
 
 
     }
-}
+
+    private void createDados(String nome, String descricao, EditText valor,String tamanho, EditText qtd) {
+        String id = UUID.randomUUID().toString();
+        Map<String, Object> doc = new HashMap<>();
+        doc.put("ID", id);
+        doc.put("Nome", nome);
+        doc.put("Descricao", descricao);
+        doc.put("Valor", parseDouble(valor));
+        doc.put("Tamanho", tamanho);
+        doc.put("Quantidade", parseInt(qtd));
+        db.collection("Produtos").document(id).set(doc)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(AddPageActivity.this, "Produto Adicionado", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddPageActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                    }
+                });
+    }
+
+    }

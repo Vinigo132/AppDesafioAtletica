@@ -259,7 +259,7 @@ public class MenuActivity extends AppCompatActivity {
                     fotoBuscada.compress(Bitmap.CompressFormat.PNG, 70, streamDaFotoEmBytes);
                     fotoEmBytes = streamDaFotoEmBytes.toByteArray();
                     String fotoEmString = android.util.Base64.encodeToString(fotoEmBytes, android.util.Base64.DEFAULT);
-                    Log.e("Firestore", "Erro ao ouvir as alterações 2" + fotoEmString);
+                    Log.e("IMAGEMFirestore", "Erro ao ouvir as alterações 2" + fotoEmString);
 
                     CardEvento evento = new CardEvento();
                     evento.setImg(fotoEmString);

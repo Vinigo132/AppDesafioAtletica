@@ -80,8 +80,7 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
     public boolean adicionarItem(CardKits produto){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference colecao = db.collection("Produtos");
-        String id = UUID.randomUUID().toString();
-        produto.setId(id);
+
         // Cria um novo documento com os dados desejados
         Map<String, Object> dadosDocumento = new HashMap<>();
         dadosDocumento.put("ID", produto.getId());

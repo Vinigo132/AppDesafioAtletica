@@ -25,8 +25,8 @@
 
         <ImageButton
             android:id="@+id/closebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="right|center"
             android:src="@drawable/baseline_close_24" />
 
@@ -156,6 +156,7 @@
             android:layout_height="wrap_content"
             android:text="+"
             android:layout_marginStart="30dp"
+            android:onClick="adicionarImagem"
             />
 
     </LinearLayout>

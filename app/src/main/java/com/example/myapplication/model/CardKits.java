@@ -5,7 +5,20 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class CardKits extends Card implements Parcelable {
+public class CardKits extends Card {
+
+    private String id;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private double valor;
     private String tamanho;
     private String nome;
@@ -48,13 +61,4 @@ public class CardKits extends Card implements Parcelable {
         this.quantidade = quantidade;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel parcel, int i) {
-
-    }
 }
