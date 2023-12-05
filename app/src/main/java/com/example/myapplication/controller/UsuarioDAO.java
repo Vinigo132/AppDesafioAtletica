@@ -94,8 +94,8 @@ public class UsuarioDAO implements IUsuario{
 
     public void recuperarNome(NomeCallback callback){
 
-         usuarioId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-         DocumentReference documentReference = db.collection("Usuarios").document(usuarioId);
+        usuarioId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference documentReference = db.collection("Usuarios").document(usuarioId);
         final String[] nome = new String[1];
          documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
              @Override
@@ -119,11 +119,11 @@ public class UsuarioDAO implements IUsuario{
 
         DocumentReference documentReference = db.collection("Usuarios").document(usuarioId);
         documentReference.set(usuarios).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d("DB", "sucesso ao salvar user");
-            }
-        })
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("DB", "sucesso ao salvar user");
+                    }
+                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {

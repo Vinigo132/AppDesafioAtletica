@@ -44,5 +44,4 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-analytics")
     implementation ("commons-codec:commons-codec:1.15")
-
 }

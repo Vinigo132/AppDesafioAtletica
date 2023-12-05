@@ -1,13 +1,36 @@
 package com.example.myapplication.model;
 
-public class CardKits extends Card{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class CardKits extends Card {
+
+    private String id;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private double valor;
     private String tamanho;
+    private String nome;
+    private int quantidade;
 
-    public CardKits(String descricao, String id, String img, double valor, String tamanho) {
+    public CardKits(){}
+    public CardKits(String descricao, String id, String img, double valor, String tamanho,String nome, int quantidade) {
         super(descricao, id, img);
         this.valor = valor;
         this.tamanho = tamanho;
+        this.nome = nome;
+        this.quantidade = quantidade;
     }
 
     public double getValor() {
@@ -25,4 +48,17 @@ public class CardKits extends Card{
     public void setTamanho(String tamanho) {
         this.tamanho = tamanho;
     }
+
+    public String getNome() {return nome;}
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getQuantidade() {return quantidade;}
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
 }
