@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="24dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="@color/azulClaro">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/round_person_24"/>
+
+            <TextView
+                android:id="@+id/NomePostagemPessoa"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textStyle="bold"
+                android:textSize="12dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/white"
+                android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:paddingRight="2dp"
+            android:background="@color/azulClaro">
+
+            <ImageButton
+                android:id="@+id/btnExcluir"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_delete_24" />
+
+        </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/descricaoPostagem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sapien eu erat luctus dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sodales augue et odio mattis, quis tempor mauris ornare. Cras eu quam magna. Vivamus et dolor ante. Praesent egestas odio quis purus eleifend, sit amet pulvinar tellus semper. Pellentesque eget nulla at urna varius eleifend sit amet nec odio. Ut in volutpat quam. Fusce eget laoreet nulla. Integer imperdiet dolor commodo sem fringilla, non congue odio egestas. Suspendisse interdum fermentum consequat." />
+
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

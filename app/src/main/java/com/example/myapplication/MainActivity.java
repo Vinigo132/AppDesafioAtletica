@@ -1,12 +1,24 @@
 package com.example.myapplication;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,6 +28,8 @@ import com.example.myapplication.controller.UsuarioDAO;
 import com.example.myapplication.model.MembroAtletica;
 
 import com.example.myapplication.view.MenuActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -36,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
     private EditText nomeCadastroEditText;
     private EditText emailCadastroEditText;
     private EditText senhaCadastroEditText;
-    private EditText ConferirSenhaEditText;
+    private EditText ConferirSenhaEditText, emailEsqueceuSenha;
     private Button btnContinuar;
     private UsuarioDAO usuarioDAO;
+    private Dialog popUp;
+    private Button enviar,cancelar;
 
 
 
@@ -53,6 +69,50 @@ public class MainActivity extends AppCompatActivity {
         initializeAnimations();
         usuarioDAO = new UsuarioDAO();
 
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popUp.dismiss();
+            }
+        });
+        enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = emailEsqueceuSenha.getText().toString();
+                if (email.equals(""))
+                    Toast.makeText(MainActivity.this, "Informe um email!", Toast.LENGTH_LONG).show();
+                else {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(MainActivity.this,
+                                                "Um e-mail de redefinição de senha foi enviado para " +
+                                                        "o seu endereço de e-mail.",
+                                                Toast.LENGTH_LONG).show();
+                                        popUp.dismiss();
+                                        emailEsqueceuSenha.setText("");
+                                    } else {
+                                        Toast.makeText(MainActivity.this,
+                                                "Falha ao enviar e-mail de redefinição de senha. " +
+                                                        "Verifique se o endereço de e-mail é válido.",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                }
+            }
+            });
+
+        esqueceuSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popUp.show();
+            }
+        });
+
+
         MaterialButtonToggleGroup materialButtonToggleGroup = findViewById(R.id.btnsToggle);
 
         materialButtonToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
@@ -65,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     public void ClickContinuar(View view) {
@@ -116,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("ResourceType")
     private void initializeViews() {
         //       -------------- login------------------
         emailLogin = findViewById(R.id.emailLogin);
@@ -128,6 +191,16 @@ public class MainActivity extends AppCompatActivity {
         nome = findViewById(R.id.nomeCadastro);
 
         btnContinuar = findViewById(R.id.btnContinuar);
+
+        // ----------------- popUp --------------
+        popUp = new Dialog(this);
+        popUp.setContentView(R.layout.popup_esqueceu_senha);
+        popUp.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        enviar = popUp.findViewById(R.id.btnEnviar);
+        cancelar = popUp.findViewById(R.id.btnCancelar);
+        emailEsqueceuSenha = popUp.findViewById(R.id.emailRecuperarSenhaEditText);
     }
 
     private void showToast(String message) {
