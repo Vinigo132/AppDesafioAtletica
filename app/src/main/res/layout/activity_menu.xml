@@ -50,9 +50,10 @@
         app:layout_constraintTop_toBottomOf="@+id/layoutTitulo">
 
         <Button
-            android:layout_width="60dp"
+            android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
             android:onClick="adicionarEvento"
             android:text="+" />
 
@@ -101,6 +102,49 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txtAdicionarNoticiaAtletica"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="10dp"
+                    android:hint="Adicionar publicação" />
+
+                <Button
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:onClick="adicionarPubliAtletica"/>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerPubliAtletica"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
+            </ScrollView>
+
         </LinearLayout>
 
         <LinearLayout
@@ -136,7 +180,8 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:text="+"
-                    android:onClick="adicionarTarefa"/>
+                    android:onClick="adicionarTarefa"
+                    android:backgroundTint="@color/azulClaro"/>
 
             </LinearLayout>
 

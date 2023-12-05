@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:background="@color/azulClaro">
+            android:background="@color/amareloClaro">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="35dp"
@@ -26,7 +26,7 @@
                 android:src="@drawable/round_person_24"/>
 
             <TextView
-                android:id="@+id/NomePostagemPessoa"
+                android:id="@+id/NomePostagemAtletica"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:textStyle="bold"
@@ -35,21 +35,21 @@
                 android:textColor="@color/black"
                 android:gravity="center" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:gravity="right"
-            android:paddingRight="2dp"
-            android:background="@color/azulClaro">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:paddingRight="2dp"
+                android:background="@color/amareloClaro">
 
-            <ImageButton
-                android:id="@+id/btnExcluir"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/baseline_delete_24" />
+                <ImageButton
+                    android:id="@+id/btnExcluirAteltica"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_delete_24" />
 
-        </LinearLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -62,7 +62,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/descricaoPostagem"
+                android:id="@+id/descricaoPostagemAltetica"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"

@@ -23,25 +23,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PublicacoesUserAdapter extends RecyclerView.Adapter<PublicacoesUserAdapter.ViewHolder> {
+public class PublicacoesAtleticaAdapter extends RecyclerView.Adapter<PublicacoesAtleticaAdapter.ViewHolder> {
 
     private List<CardNoticias> lista;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView nomePessoa;
+        private final TextView nomeCurso;
         private final TextView descricao;
         private final ImageView btnExcluir;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-            descricao = view.findViewById(R.id.descricaoPostagem);
-            nomePessoa = view.findViewById(R.id.NomePostagemPessoa);
-            btnExcluir = view.findViewById(R.id.btnExcluir);
+            descricao = view.findViewById(R.id.descricaoPostagemAltetica);
+            nomeCurso = view.findViewById(R.id.NomePostagemAtletica);
+            btnExcluir = view.findViewById(R.id.btnExcluirAteltica);
         }
     }
 
-    public PublicacoesUserAdapter(List<CardNoticias> lista) {
+    public PublicacoesAtleticaAdapter(List<CardNoticias> lista) {
         this.lista = lista;
     }
 
@@ -50,8 +50,8 @@ public class PublicacoesUserAdapter extends RecyclerView.Adapter<PublicacoesUser
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View eventosView = inflater.inflate(R.layout.publicacoes_users_lista, parent, false);
-        ViewHolder viewHolder = new ViewHolder(eventosView);
+        View publiView = inflater.inflate(R.layout.publicacoes_atletica_lista, parent, false);
+        ViewHolder viewHolder = new ViewHolder(publiView);
         return viewHolder;
     }
 
@@ -59,7 +59,7 @@ public class PublicacoesUserAdapter extends RecyclerView.Adapter<PublicacoesUser
     public void onBindViewHolder( ViewHolder viewHolder, final int position) {
         CardNoticias publicacao = lista.get(position);
         viewHolder.descricao.setText(publicacao.getDescricao());
-        viewHolder.nomePessoa.setText(publicacao.getAutor() + " - " + publicacao.getCurso());
+        viewHolder.nomeCurso.setText(publicacao.getCurso());
         viewHolder.btnExcluir.setOnClickListener(view -> excluirItem(position));
 
     }
@@ -71,11 +71,10 @@ public class PublicacoesUserAdapter extends RecyclerView.Adapter<PublicacoesUser
 
     public boolean adicionarItem(CardNoticias postagem){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference colecao = db.collection("publicacoesUsuarios");
+        CollectionReference colecao = db.collection("publicacoesAtletica");
 
         // Cria um novo documento com os dados desejados
         Map<String, String> dadosDocumento = new HashMap<>();
-        dadosDocumento.put("autor", postagem.getAutor());
         dadosDocumento.put("curso", postagem.getCurso());
         dadosDocumento.put("descricao", postagem.getDescricao());
 
@@ -109,7 +108,7 @@ public class PublicacoesUserAdapter extends RecyclerView.Adapter<PublicacoesUser
         String idDocumento = lista.get(position).getId();
 
         // Obtém uma referência para o documento que deseja excluir
-        DocumentReference documentoRef = db.collection("publicacoesUsuarios").document(String.valueOf(idDocumento));
+        DocumentReference documentoRef = db.collection("publicacoesAtletica").document(String.valueOf(idDocumento));
 
         // Exclui o documento
         documentoRef.delete()

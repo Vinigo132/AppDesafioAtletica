@@ -28,6 +28,7 @@ import java.util.Base64;
 
 import com.example.myapplication.R;
 import com.example.myapplication.controller.EventosAdapter;
+import com.example.myapplication.controller.PublicacoesAtleticaAdapter;
 import com.example.myapplication.controller.PublicacoesUserAdapter;
 import com.example.myapplication.controller.UsuarioDAO;
 import com.example.myapplication.model.CardEvento;
@@ -50,19 +51,24 @@ public class MenuActivity extends AppCompatActivity {
     BottomNavigationView navbarMenu;
     private RecyclerView recyclerPubliUsers;
     private RecyclerView recyclerEventos;
+    private RecyclerView recyclerPubliAtletica;
     private FirebaseFirestore db;
     private PublicacoesUserAdapter publiUserAdapter;
+    private PublicacoesAtleticaAdapter publiAtleticaAdapter;
     private EventosAdapter eventosAdapter;
     private CollectionReference colecaoPubliUsers;
+    private CollectionReference colecaoPubliAtletica;
     private CollectionReference colecaoEventos;
     private List<CardNoticias> listaPublicacoesUser;
+    private List<CardNoticias> listaPublicacoesAtletica;
     private List<CardEvento> listaEventos;
     private TextView txtAdicionarPublicacao;
+    private TextView txtAdicionarPubliAtletica;
     private LinearLayoutManager linearLayoutManager;
-    private ImageView test;
     private UsuarioDAO usuarioDAO;
     private EventListener<QuerySnapshot> eventListener;
     private EventListener<QuerySnapshot> eventListenerEventos;
+    private EventListener<QuerySnapshot> eventListenerAtletica;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -74,12 +80,15 @@ public class MenuActivity extends AppCompatActivity {
         navbarMenu = findViewById(R.id.navbarMenu);
         navbarMenu.setSelectedItemId(R.id.home);
         txtAdicionarPublicacao = findViewById(R.id.txtAdicionarTarefa);
-        test = findViewById(R.id.imgEvento);
+        txtAdicionarPubliAtletica = findViewById(R.id.txtAdicionarNoticiaAtletica);
 
 
         db = FirebaseFirestore.getInstance();
         colecaoPubliUsers = db.collection("publicacoesUsuarios");
         colecaoEventos = db.collection("eventos");
+        colecaoPubliAtletica = db.collection("publicacoesAtletica");
+
+
         recyclerPubliUsers = findViewById(R.id.recyclerPubliUsers);
         recyclerPubliUsers.setLayoutManager(new LinearLayoutManager(this));
         listaPublicacoesUser = new ArrayList<>();
@@ -93,8 +102,17 @@ public class MenuActivity extends AppCompatActivity {
         eventosAdapter = new EventosAdapter(listaEventos);
         recyclerEventos.setAdapter(eventosAdapter);
 
+        recyclerPubliAtletica = findViewById(R.id.recyclerPubliAtletica);
+        recyclerPubliAtletica.setLayoutManager(new LinearLayoutManager(this));
+        listaPublicacoesAtletica = new ArrayList<>();
+        publiAtleticaAdapter = new PublicacoesAtleticaAdapter(listaPublicacoesAtletica);
+        recyclerPubliAtletica.setAdapter(publiAtleticaAdapter);
+
+
+
         exibirTarefas();
-       exibirEventos();
+        exibirEventos();
+        exibirPubliAtletica();
 
 
         navbarMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -122,13 +140,27 @@ public class MenuActivity extends AppCompatActivity {
         usuarioDAO.recuperarNome(nome -> {
             noticiaUsuario.setAutor(nome);
             // Nome do autor definido, agora você pode adicionar o item
-            noticiaUsuario.setCurso(" - Odonto");
+            noticiaUsuario.setCurso("Odonto");
             if (publiUserAdapter.adicionarItem(noticiaUsuario)) {
                 Toast.makeText(getApplicationContext(), "Tarefa adicionada com sucesso!", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Erro ao adicionar documento!", Toast.LENGTH_SHORT).show();
             }
             txtAdicionarPublicacao.setText("");
+        });
+    }
+    public void adicionarPubliAtletica(View view){
+        CardNoticias noticiaAtletica = new CardNoticias();
+        noticiaAtletica.setDescricao((txtAdicionarPubliAtletica.getText().toString()));
+        usuarioDAO.recuperarNome(nome -> {
+            noticiaAtletica.setCurso(nome);
+            // Nome do autor definido, agora você pode adicionar o item
+            if (publiAtleticaAdapter.adicionarItem(noticiaAtletica)) {
+                Toast.makeText(getApplicationContext(), "Tarefa adicionada com sucesso!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Erro ao adicionar documento!", Toast.LENGTH_SHORT).show();
+            }
+            txtAdicionarPubliAtletica.setText("");
         });
     }
 
@@ -160,6 +192,31 @@ public class MenuActivity extends AppCompatActivity {
                     listaPublicacoesUser.add(noticiaUsuario);
                 }
                 publiUserAdapter.notifyDataSetChanged();
+            }
+        };
+    }
+
+    public void exibirPubliAtletica(){
+        // Configurar o SnapshotListener
+        eventListenerAtletica = new com.google.firebase.firestore.EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot querySnapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.e("Firestore", "Erro ao ouvir as alterações", e);
+                    return;
+                }
+
+                listaPublicacoesAtletica.clear();
+                for (DocumentSnapshot document : querySnapshot) {
+                    CardNoticias noticiaAtletica = new CardNoticias();
+                    noticiaAtletica.setId((document.getId()));
+                    noticiaAtletica.setDescricao(document.getString("descricao"));
+                    noticiaAtletica.setCurso(document.getString("curso"));
+
+                    listaPublicacoesAtletica.add(noticiaAtletica);
+                }
+                publiAtleticaAdapter.notifyDataSetChanged();
             }
         };
     }
@@ -197,7 +254,6 @@ public class MenuActivity extends AppCompatActivity {
                     Log.e("Firestore", "Erro ao ouvir as alterações");
                     Uri imageUri = dados.getData();
                     Bitmap fotoBuscada = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                    //test.setImageBitmap(fotoBuscada);
                     byte[] fotoEmBytes;
                     ByteArrayOutputStream streamDaFotoEmBytes = new ByteArrayOutputStream();
                     fotoBuscada.compress(Bitmap.CompressFormat.PNG, 70, streamDaFotoEmBytes);
@@ -227,6 +283,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onStart();
         colecaoPubliUsers.addSnapshotListener(eventListener);
         colecaoEventos.addSnapshotListener(eventListenerEventos);
+        colecaoPubliAtletica.addSnapshotListener(eventListenerAtletica);
 
     }
 
