@@ -5,6 +5,8 @@ public class CardCuponsParcerias extends Card{
     private String endereco;
     private String contato;
 
+    public CardCuponsParcerias(){}
+
     public CardCuponsParcerias(String descricao, int id, String img, String endereco, String contato) {
 
         this.endereco = endereco;

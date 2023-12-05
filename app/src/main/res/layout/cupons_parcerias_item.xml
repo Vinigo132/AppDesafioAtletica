@@ -2,20 +2,23 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="10dp"
-        app:cardCornerRadius="24dp">
+        app:cardCornerRadius="24dp"
+        tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/imgEvento"
-            android:layout_width="150dp"
+            android:id="@+id/imgCupomParceria"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:src="@drawable/santo_gole"/>
+            android:background="@color/azulEscuro"
+            android:src="@drawable/cp1"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +28,7 @@
             android:layout_marginRight="5dp">
 
             <ImageButton
-                android:id="@+id/btnExcluirEevnt"
+                android:id="@+id/btnExcluirCupomParceria"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="end"
@@ -33,7 +36,6 @@
                 android:src="@drawable/baseline_delete_24" />
 
         </LinearLayout>
-
 
     </androidx.cardview.widget.CardView>
 
