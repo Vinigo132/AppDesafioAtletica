@@ -2,6 +2,7 @@ package com.example.myapplication.model;
 
 public class CardEvento extends Card{
     private String contato;
+    public CardEvento(){}
 
     public CardEvento(String descricao, String id, String img, String contato) {
         super(descricao, id, img);

@@ -1,21 +1,25 @@
 package com.example.myapplication.model;
 
 public class CardNoticias extends Card{
-    private String Titulo;
+    private String Curso;
     private String Autor;
 
     public String getTitulo() {
-        return Titulo;
+        return Curso;
     }
+    public CardNoticias(){}
 
-    public CardNoticias(String descricao, String id, String img, String titulo, String autor) {
+    public CardNoticias(String descricao, String id, String img, String curso, String autor) {
         super(descricao, id, img);
-        Titulo = titulo;
+        Curso = curso;
         Autor = autor;
     }
 
-    public void setTitulo(String titulo) {
-        Titulo = titulo;
+    public void setCurso(String titulo) {
+        Curso = titulo;
+    }
+    public String getCurso(){
+        return this.Curso;
     }
 
     public String getAutor() {

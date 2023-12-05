@@ -40,66 +40,38 @@
         android:textSize="25sp"
         app:layout_constraintTop_toBottomOf="@+id/layoutTitulo"
         app:layout_constraintStart_toStartOf="parent"/>
-    
-    <HorizontalScrollView
-        android:id="@+id/scrollEventos"
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        app:layout_constraintStart_toEndOf="@+id/txtEventos"
+        app:layout_constraintTop_toBottomOf="@+id/layoutTitulo">
+
+        <Button
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
+            android:onClick="adicionarEvento"
+            android:text="+" />
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerEventos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@+id/txtEventos"
+        app:layout_constraintBottom_toTopOf="@+id/layoutNoticias"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        app:layout_constraintTop_toBottomOf="@+id/txtEventos">
+    </androidx.recyclerview.widget.RecyclerView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="24dp">
 
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/santo_gole"/>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="24dp">
-
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/tusca"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="24dp">
-
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/inter"/>
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-    </HorizontalScrollView>
 
 
     <LinearLayout
@@ -108,7 +80,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/scrollEventos"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerEventos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/navbarMenu">
@@ -122,6 +94,7 @@
 
 
             <TextView
+                android:id="@+id/teste"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notícias das Atléticas"
@@ -129,9 +102,31 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"/>
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txtAdicionarNoticiaAtletica"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="10dp"
+                    android:hint="Adicionar publicação" />
+
+                <Button
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:onClick="adicionarPubliAtletica"/>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:fillViewport="true">
 
                 <LinearLayout
@@ -140,108 +135,14 @@
                     android:orientation="vertical"
                     android:gravity="center">
 
-                    <androidx.cardview.widget.CardView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerPubliAtletica"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_marginTop="10dp"
-                        app:cardCornerRadius="24dp">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:background="@color/azulClaro">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:src="@drawable/atletica_eng"
-                                app:civ_border_width="1dp"
-                                app:civ_border_color="@color/azulEscuro"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:gravity="center"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:text="Engenharia"/>
-
-                        </LinearLayout>
-
-                        <ScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
-                            android:layout_marginHorizontal="5dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sapien eu erat luctus dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sodales augue et odio mattis, quis tempor mauris ornare. Cras eu quam magna. Vivamus et dolor ante. Praesent egestas odio quis purus eleifend, sit amet pulvinar tellus semper. Pellentesque eget nulla at urna varius eleifend sit amet nec odio. Ut in volutpat quam. Fusce eget laoreet nulla. Integer imperdiet dolor commodo sem fringilla, non congue odio egestas. Suspendisse interdum fermentum consequat." />
-
-                        </ScrollView>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_marginTop="10dp"
-                        app:cardCornerRadius="24dp">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:background="@color/azulClaro">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:src="@drawable/odonto"
-                                app:civ_border_width="1dp"
-                                app:civ_border_color="@color/azulEscuro"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:gravity="center"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:text="Odontologia"/>
-
-                        </LinearLayout>
-
-                        <ScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
-                            android:layout_marginHorizontal="5dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sapien eu erat luctus dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sodales augue et odio mattis, quis tempor mauris ornare. Cras eu quam magna. Vivamus et dolor ante. Praesent egestas odio quis purus eleifend, sit amet pulvinar tellus semper. Pellentesque eget nulla at urna varius eleifend sit amet nec odio. Ut in volutpat quam. Fusce eget laoreet nulla. Integer imperdiet dolor commodo sem fringilla, non congue odio egestas. Suspendisse interdum fermentum consequat." />
-
-                        </ScrollView>
-
-                    </androidx.cardview.widget.CardView>
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
+                    </androidx.recyclerview.widget.RecyclerView>
 
                 </LinearLayout>
-
             </ScrollView>
 
         </LinearLayout>
@@ -261,9 +162,32 @@
                 android:textStyle="bold"
                 android:textSize="18sp"/>
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txtAdicionarTarefa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="10dp"
+                    android:hint="Adicionar publicação" />
+
+                <Button
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:onClick="adicionarTarefa"
+                    android:backgroundTint="@color/azulClaro"/>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:fillViewport="true">
 
                 <LinearLayout
@@ -272,121 +196,14 @@
                     android:orientation="vertical"
                     android:gravity="center">
 
-                    <androidx.cardview.widget.CardView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerPubliUsers"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_marginTop="10dp"
-                        app:cardCornerRadius="24dp">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:orientation="horizontal"
-                            android:background="@color/amareloClaro">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:src="@drawable/round_person_24"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:textStyle="bold"
-                                android:layout_marginLeft="5dp"
-                                android:textColor="@color/black"
-                                android:gravity="center"
-                                android:text="Fulano"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="- Medicina"
-                                android:textColor="@color/black"/>
-
-
-                        </LinearLayout>
-
-                        <ScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
-                            android:layout_marginHorizontal="5dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sapien eu erat luctus dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sodales augue et odio mattis, quis tempor mauris ornare. Cras eu quam magna. Vivamus et dolor ante. Praesent egestas odio quis purus eleifend, sit amet pulvinar tellus semper. Pellentesque eget nulla at urna varius eleifend sit amet nec odio. Ut in volutpat quam. Fusce eget laoreet nulla. Integer imperdiet dolor commodo sem fringilla, non congue odio egestas. Suspendisse interdum fermentum consequat." />
-
-                        </ScrollView>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_marginTop="10dp"
-                        app:cardCornerRadius="24dp">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:orientation="horizontal"
-                            android:background="@color/amareloClaro">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
-                                android:src="@drawable/round_person_24"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:textStyle="bold"
-                                android:layout_marginLeft="5dp"
-                                android:textColor="@color/black"
-                                android:gravity="center"
-                                android:text="Ciclano"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:text="- Artes"
-                                android:textColor="@color/black"/>
-
-
-                        </LinearLayout>
-
-                        <ScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
-                            android:layout_marginHorizontal="5dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sapien eu erat luctus dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas sodales augue et odio mattis, quis tempor mauris ornare. Cras eu quam magna. Vivamus et dolor ante. Praesent egestas odio quis purus eleifend, sit amet pulvinar tellus semper. Pellentesque eget nulla at urna varius eleifend sit amet nec odio. Ut in volutpat quam. Fusce eget laoreet nulla. Integer imperdiet dolor commodo sem fringilla, non congue odio egestas. Suspendisse interdum fermentum consequat." />
-
-                        </ScrollView>
-
-                    </androidx.cardview.widget.CardView>
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
+                    </androidx.recyclerview.widget.RecyclerView>
 
                 </LinearLayout>
-
-
             </ScrollView>
 
         </LinearLayout>
