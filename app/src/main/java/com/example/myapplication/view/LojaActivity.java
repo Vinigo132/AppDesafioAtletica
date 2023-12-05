@@ -67,7 +67,6 @@ public class LojaActivity extends AppCompatActivity {
     BottomNavigationView navbarMenu;
     private FirebaseFirestore db;
     private CollectionReference colecaoCupomParceria;
-    private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerCupomParceria;
     private List<CardCuponsParcerias> listaCupomParceria;
     private CuponsParceriasAdapter cupomParceriaAdapter;
