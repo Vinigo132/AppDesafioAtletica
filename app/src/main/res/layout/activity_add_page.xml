@@ -145,6 +145,7 @@
             android:layout_height="wrap_content"
             android:text="Adicionar produto"
             android:layout_gravity="center"/>
+        
 
     </LinearLayout>
 </LinearLayout>
