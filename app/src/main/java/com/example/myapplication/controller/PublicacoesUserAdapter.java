@@ -1,6 +1,4 @@
-PublicacoesUseAdapter
-
-        package com.example.myapplication.controller;
+package com.example.myapplication.controller;
 
 import android.content.Context;
 import android.util.Log;
