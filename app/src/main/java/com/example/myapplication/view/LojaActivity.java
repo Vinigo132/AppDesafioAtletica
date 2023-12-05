@@ -8,14 +8,23 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class LojaActivity extends AppCompatActivity {
 
     BottomNavigationView navbarMenu;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +34,25 @@ public class LojaActivity extends AppCompatActivity {
 
         navbarMenu = findViewById(R.id.navbarMenu);
         navbarMenu.setSelectedItemId(R.id.loja);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         ImageView prod = findViewById(R.id.prod1);
+        ImageView create = findViewById(R.id.createbtn);
 
         prod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyDialogFragment dialog = new MyDialogFragment();
-                dialog.show(getSupportFragmentManager(),"Minha dialog");
+                dialog.show(getSupportFragmentManager(),"Comprar Produto");
             }
         });
+
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AddPageActivity.class));
+            }
+        });
+
+
 
         navbarMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -55,4 +72,5 @@ public class LojaActivity extends AppCompatActivity {
             }
         });
     }
+
 }
