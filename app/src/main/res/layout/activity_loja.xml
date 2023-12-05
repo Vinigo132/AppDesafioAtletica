@@ -89,13 +89,13 @@
         />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toEndOf="@+id/txtCuponsParcerias"
-        app:layout_constraintTop_toBottomOf="@+id/scrollProdutos">
+        app:layout_constraintTop_toBottomOf="@+id/recyclerProdutos">
 
         <Button
             android:layout_width="55dp"

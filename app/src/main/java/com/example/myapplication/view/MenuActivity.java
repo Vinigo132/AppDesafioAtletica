@@ -140,11 +140,11 @@ public class MenuActivity extends AppCompatActivity {
         usuarioDAO.recuperarNome(nome -> {
             noticiaUsuario.setAutor(nome);
             // Nome do autor definido, agora você pode adicionar o item
-            noticiaUsuario.setCurso("Odonto");
+            noticiaUsuario.setCurso("Engenharia");
             if (publiUserAdapter.adicionarItem(noticiaUsuario)) {
-                Toast.makeText(getApplicationContext(), "Tarefa adicionada com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Notícia adicionada com sucesso!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Erro ao adicionar documento!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Notícia adicionada com sucesso!", Toast.LENGTH_SHORT).show();
             }
             txtAdicionarPublicacao.setText("");
         });
@@ -152,16 +152,14 @@ public class MenuActivity extends AppCompatActivity {
     public void adicionarPubliAtletica(View view){
         CardNoticias noticiaAtletica = new CardNoticias();
         noticiaAtletica.setDescricao((txtAdicionarPubliAtletica.getText().toString()));
-        usuarioDAO.recuperarNome(nome -> {
-            noticiaAtletica.setCurso(nome);
+            noticiaAtletica.setCurso("Engenharia");
             // Nome do autor definido, agora você pode adicionar o item
             if (publiAtleticaAdapter.adicionarItem(noticiaAtletica)) {
-                Toast.makeText(getApplicationContext(), "Tarefa adicionada com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Notícia adicionada com sucesso!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "Erro ao adicionar documento!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Notícia adicionada com sucesso!", Toast.LENGTH_SHORT).show();
             }
             txtAdicionarPubliAtletica.setText("");
-        });
     }
 
     public void adicionarEvento(View view){
@@ -265,9 +263,9 @@ public class MenuActivity extends AppCompatActivity {
                     evento.setImg(fotoEmString);
                     evento.setDescricao("evento");
                     if (eventosAdapter.adicionarItem(evento)) {
-                        Toast.makeText(getApplicationContext(), "Tarefa adicionada com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Evento adicionada com sucesso!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Erro ao adicionar documento!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Evento adicionada com sucesso!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (Exception e){

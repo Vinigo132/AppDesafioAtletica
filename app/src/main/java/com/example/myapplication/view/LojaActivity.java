@@ -222,9 +222,9 @@ public class LojaActivity extends AppCompatActivity {
                     cardCupomParceria.setImg(fotoEmString);
                     cardCupomParceria.setDescricao("cupom");
                     if (cupomParceriaAdapter.adicionarItem(cardCupomParceria)) {
-                        Toast.makeText(getApplicationContext(), "Tarefa adicionada com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Cupom / Parceria adicionada com sucesso!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Erro ao adicionar documento!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Cupom / Parceria com sucesso!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (Exception e){
@@ -274,9 +274,9 @@ public class LojaActivity extends AppCompatActivity {
 
 
                     if (produtosAdapter.adicionarItem(produto)) {
-                        Toast.makeText(getApplicationContext(), "Tarefa adicionada com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Produto adicionada com sucesso!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Erro ao adicionar documento!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Produto adicionada com sucesso!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (Exception e){
