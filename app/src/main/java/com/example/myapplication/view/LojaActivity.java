@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -30,6 +34,7 @@ public class LojaActivity extends AppCompatActivity {
 
     private RecyclerView recyclerProdutos;
     private ProdutosAdapter produtosAdapter;
+    private Dialog popUp;
     BottomNavigationView navbarMenu;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -48,6 +53,16 @@ public class LojaActivity extends AppCompatActivity {
         recyclerProdutos.setAdapter(produtosAdapter);
         Button create = findViewById(R.id.createbtn);
 
+        // ----------------- popUp --------------
+        popUp = new Dialog(this);
+        popUp.setContentView(R.layout.activity_add_page);
+        popUp.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        popUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        Button fechar = popUp.findViewById(R.id.closebtn);
+
+
+
     //    prod.setOnClickListener(new View.OnClickListener() {
      //       @Override
      //       public void onClick(View view) {
@@ -58,7 +73,7 @@ public class LojaActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), AddPageActivity.class));
+                popUp.show();
             }
         });
 
