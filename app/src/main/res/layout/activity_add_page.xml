@@ -137,13 +137,37 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="80dp"/>
+            android:layout_height="25dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/createbtn"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Adicione uma Imagem:"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/addimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:layout_marginStart="30dp"
+            />
+
+    </LinearLayout>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"/>
+        <Button
+            android:id="@+id/createbtn"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
             android:text="Adicionar produto"
+            android:textSize="18dp"
             android:layout_gravity="center"/>
         
 

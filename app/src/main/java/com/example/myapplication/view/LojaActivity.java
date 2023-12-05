@@ -2,15 +2,20 @@ package com.example.myapplication.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.controller.ProdutosAdapter;
+import com.example.myapplication.model.CardKits;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +28,8 @@ import java.util.UUID;
 
 public class LojaActivity extends AppCompatActivity {
 
+    private RecyclerView recyclerProdutos;
+    private ProdutosAdapter produtosAdapter;
     BottomNavigationView navbarMenu;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -31,19 +38,22 @@ public class LojaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loja);
 
-
+        CardKits teste = new CardKits();
         navbarMenu = findViewById(R.id.navbarMenu);
         navbarMenu.setSelectedItemId(R.id.loja);
-        ImageView prod = findViewById(R.id.prod1);
-        ImageView create = findViewById(R.id.createbtn);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerProdutos = findViewById(R.id.recyclerProdutos);
+        recyclerProdutos.setLayoutManager(linearLayoutManager);
+        //produtosAdapter = new ProdutosAdapter(listaProdutos);
+        recyclerProdutos.setAdapter(produtosAdapter);
+        Button create = findViewById(R.id.createbtn);
 
-        prod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MyDialogFragment dialog = new MyDialogFragment();
-                dialog.show(getSupportFragmentManager(),"Comprar Produto");
-            }
-        });
+    //    prod.setOnClickListener(new View.OnClickListener() {
+     //       @Override
+     //       public void onClick(View view) {
+//                dialog.show(getSupportFragmentManager(),"Comprar Produto");
+      //      }
+      //  });
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override

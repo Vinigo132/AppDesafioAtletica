@@ -1,6 +1,11 @@
 package com.example.myapplication.model;
 
-public class CardKits extends Card{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class CardKits extends Card implements Parcelable {
     private double valor;
     private String tamanho;
     private String nome;
@@ -41,5 +46,15 @@ public class CardKits extends Card{
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+
     }
 }

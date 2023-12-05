@@ -12,10 +12,10 @@
         app:cardCornerRadius="24dp">
 
         <ImageView
-            android:id="@+id/imgEvento"
+            android:id="@+id/imgProduto"
             android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:src="@drawable/santo_gole"/>
+            android:src="@drawable/prod1"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_marginRight="5dp">
 
             <ImageButton
-                android:id="@+id/btnExcluirEevnt"
+                android:id="@+id/btnExcluirProduto"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="end"
