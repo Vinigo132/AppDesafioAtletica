@@ -83,7 +83,6 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
 
         // Cria um novo documento com os dados desejados
         Map<String, Object> dadosDocumento = new HashMap<>();
-        dadosDocumento.put("ID", produto.getId());
         dadosDocumento.put("nome",produto.getNome());
         dadosDocumento.put("Descricao",produto.getDescricao());
         dadosDocumento.put("Valor", produto.getValor());
@@ -121,7 +120,7 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
         String idDocumento = lista.get(position).getId();
 
         // Obtém uma referência para o documento que deseja excluir
-        DocumentReference documentoRef = db.collection("eventos").document(String.valueOf(idDocumento));
+        DocumentReference documentoRef = db.collection("Produtos").document(String.valueOf(idDocumento));
 
         // Exclui o documento
         documentoRef.delete()

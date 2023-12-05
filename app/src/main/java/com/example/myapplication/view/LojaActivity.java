@@ -118,8 +118,7 @@ public class LojaActivity extends AppCompatActivity {
         adicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+            popUp.dismiss();
             }
         });
 
@@ -146,7 +145,7 @@ public class LojaActivity extends AppCompatActivity {
     public void adicionarImagem(View view){
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 2);
     }
 
     public void exibirImagem(){
@@ -163,6 +162,7 @@ public class LojaActivity extends AppCompatActivity {
                 listaProdutos.clear();
                 for (DocumentSnapshot document : querySnapshot) {
                     CardKits produto = new CardKits();
+                    produto.setId((document.getId()));
                     produto.setDescricao(document.getString("descricao"));
                     produto.setImg(document.getString("imagem"));
 
@@ -175,10 +175,9 @@ public class LojaActivity extends AppCompatActivity {
 
     protected void onActivityResult(int ResquestCode, int ResultCode, Intent dados) {
         super.onActivityResult(ResquestCode, ResultCode, dados);
-        if (ResquestCode == 1) {
+        if (ResquestCode == 2) {
             if(ResultCode == Activity.RESULT_OK) {
                 try {
-                    Log.e("Firestore", "Erro ao ouvir as alterações");
                     Uri imageUri = dados.getData();
                     Bitmap fotoBuscada = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                     byte[] fotoEmBytes;
@@ -186,25 +185,24 @@ public class LojaActivity extends AppCompatActivity {
                     fotoBuscada.compress(Bitmap.CompressFormat.PNG, 70, streamDaFotoEmBytes);
                     fotoEmBytes = streamDaFotoEmBytes.toByteArray();
                     String fotoEmString = android.util.Base64.encodeToString(fotoEmBytes, android.util.Base64.DEFAULT);
-                    Log.e("OLHAAIMAGEM", "Erro ao ouvir as alterações 2" + fotoEmString);
+
 
                     CardKits produto = new CardKits();
-                    EditText nome = findViewById(R.id.createNome);
-                    EditText desc = findViewById(R.id.createDesc);
-                    EditText valor = findViewById(R.id.createValor);
-                    EditText tamanho = findViewById(R.id.createTamanho);
-                    EditText qtd = findViewById(R.id.createQtd);
+                    EditText nome = popUp.findViewById(R.id.createNome);
+                    EditText desc = popUp.findViewById(R.id.createDesc);
+                    EditText valor = popUp.findViewById(R.id.createValor);
+                    EditText tamanho = popUp.findViewById(R.id.createTamanho);
+                    EditText qtd = popUp.findViewById(R.id.createQtd);
 
-                    String id = UUID.randomUUID().toString();
-                    produto.setId(id);
 
-                    String nomeS = nome.getText().toString().trim();
+                    String nomeS = nome.getText().toString();
                     produto.setNome(nomeS);
 
-                    String descS = desc.getText().toString().trim();
+
+                    String descS = desc.getText().toString();
                     produto.setDescricao(descS);
 
-                    String tamanhoS = tamanho.getText().toString().trim();
+                    String tamanhoS = tamanho.getText().toString();
                     produto.setTamanho(tamanhoS);
 
                     Double valorD = parseDouble(valor);
@@ -215,6 +213,7 @@ public class LojaActivity extends AppCompatActivity {
 
                     produto.setImg(fotoEmString);
                     produto.setDescricao("produto");
+
 
                     if (produtosAdapter.adicionarItem(produto)) {
                         Toast.makeText(getApplicationContext(), "Tarefa adicionada com sucesso!", Toast.LENGTH_SHORT).show();
